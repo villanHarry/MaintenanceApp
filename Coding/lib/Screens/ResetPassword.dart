@@ -1,7 +1,10 @@
 import '../Constants/AppImports.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({Key? key}) : super(key: key);
+  const ResetPasswordScreen({Key? key, this.changePass = false})
+      : super(key: key);
+
+  final bool changePass;
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -32,7 +35,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             ),
           ),
           title: Text(
-            "Reset Password",
+            widget.changePass ? "Change Password" : "Reset Password",
             style: TextStyle(
                 color: const Color(0xFF082D50),
                 fontSize: 20.sp,
@@ -85,7 +88,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               SizedBox(height: 25.h),
               Button(
-                text: "Reset",
+                text: widget.changePass ? "Change" : "Reset",
                 borderRadius: .01.sw,
                 color: const Color(0xFF082D50),
                 fontColor: Colors.white,
@@ -103,7 +106,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   void resetFunction() {
     //if (_formKey.currentState!.validate()) {}
-    AppNavigation.popAll(context, const LoginScreen());
+    if (widget.changePass) {
+      AppNavigation.pop(context);
+    } else {
+      AppNavigation.popAll(context, const LoginScreen());
+    }
   }
 
   @override

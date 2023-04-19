@@ -320,7 +320,9 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       actions: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            AppNavigation.push(context, const NotificationScreen());
+          },
           child: Padding(
             padding: EdgeInsets.fromLTRB(0, 0.02.sw, 0.05.sw, 0),
             child: Icon(
@@ -393,7 +395,78 @@ class _HomeScreenState extends State<HomeScreen>
                         color: Colors.white,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
-                      )))
+                      ))),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 0.025.sh),
+                child: SizedBox(
+                  width: 0.6.sw,
+                  child: Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                  ),
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
+                  child: InkWell(
+                    onTap: () {
+                      scaffoldKey.currentState!.closeDrawer();
+                      AppNavigation.push(
+                          context,
+                          const ResetPasswordScreen(
+                            changePass: true,
+                          ));
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0.05.sw, 0, 0, 0),
+                          child: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                            size: 25.r,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 0.025.sw,
+                        ),
+                        Text("Change Password",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w400,
+                            ))
+                      ],
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0.03.sh, 0, 0),
+                  child: InkWell(
+                    onTap: () {
+                      AppNavigation.popAll(context, const LoginScreen());
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0.05.sw, 0, 0, 0),
+                          child: Icon(
+                            Icons.power_settings_new_rounded,
+                            color: Colors.white,
+                            size: 25.r,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 0.025.sw,
+                        ),
+                        Text("Logout",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w400,
+                            ))
+                      ],
+                    ),
+                  ))
             ])));
   }
 }
