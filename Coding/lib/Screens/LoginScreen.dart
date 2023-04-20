@@ -143,7 +143,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginFunction() {
     //if (_formKey.currentState!.validate()) {}
-    AppNavigation.replace(context, const HomeScreen());
+    if (email.text == "admin" && password.text == "admin") {
+      AppNavigation.replace(
+          context,
+          const HomeScreen(
+            admin: true,
+          ));
+    } else {
+      AppNavigation.replace(context, const HomeScreen());
+    }
   }
 
   void signUpFunction() {

@@ -1,8 +1,18 @@
-const {express, app, port} = require('./Constants/Imports');
+// constants
+const { express, app, port, server, cors, database } = require('./Constants/Imports');
 
-
+// constants
 app.use(express.json());
+app.use(cors());
 
-app.listen(port, () => {
-    console.log('Server is running on port 3000');
+// routes
+app.use('/user/api/', require('./Routes/UserRoutes'));
+app.use('/mntnc/api/', require('./Routes/MaintenanceRoutes'));
+
+// database connection
+database();
+
+// server listen
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

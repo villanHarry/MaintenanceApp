@@ -1,7 +1,9 @@
 import '../Constants/AppImports.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, this.admin = false}) : super(key: key);
+
+  final bool admin;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -12,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen>
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late final TabController tabController =
       TabController(length: 3, vsync: this);
-  final bool admin = false;
+  late final bool admin = widget.admin;
   bool onpressed = false;
   List<bool> isSelected = [true, false, false];
   String dropDown = "this week";

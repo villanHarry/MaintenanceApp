@@ -14,7 +14,10 @@ class _CompletedRequestsState extends State<CompletedRequests> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RequestCard(),
+        RequestCard(
+          dropDown: 'Completed',
+          admin: admin,
+        ),
       ],
     );
   }

@@ -14,7 +14,10 @@ class _ProcessingRequestsState extends State<ProcessingRequests> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RequestCard(),
+        RequestCard(
+          dropDown: 'Processing',
+          admin: admin,
+        ),
       ],
     );
   }
