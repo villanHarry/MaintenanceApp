@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "63410459-5ae0-44d0-a200-3969cd83ff6b",
+		"name": "MaintenanceApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "Login",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"alif@email.com\",\n    \"password\":\"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/user/api/login",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"username\":\"Admin\",\n\"email\":\"admin@gmail.com\",\n\"password\":\"admin@123\",\n\"image\":\"https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/user/api/signup",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"api",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ForgotPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"admin@gmail.com\",\n    \"otp\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/user/api/forgotpassword",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"api",
+								"forgotpassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verification",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"admin@gmail.com\",\n    \"otp\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/user/api/verify",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"api",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"alif@email.com\",\n    \"password\":\"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/user/api/resetPass",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"api",
+								"resetPass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "uXub0aivQXuLMyQRugwOJK365VYZDer1aLYPdYwpRjeC8Vx7bGEZfkoDPWo9",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/user/api/changePass",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"api",
+								"changePass"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Maintenance APIs",
+			"item": [
+				{
+					"name": "Add Maintenance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBiMmI2YjQ4MDc5MjhhOThmOGM2NyIsImlhdCI6MTY4MTk2MzEyNCwiZXhwIjoxNjgyMTM1OTI0fQ.JjJQE58gc9jXZFrai7IztGTUYOaerGv-MuLw3zfzu1w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"msg\":\"Paani nai aa raha\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/mntnc/api/add",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mntnc",
+								"api",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Maintenances For Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBhY2M5NzhhZThmNDU5YzdjY2FmYSIsImlhdCI6MTY4MTk2MzU3MiwiZXhwIjoxNjgyMTM2MzcyfQ.0CYRNEWTNfBI0-MMH_x2Snlhh3C0OwtBASyvwt2JynI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/mntnc/api/GetAdmin",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mntnc",
+								"api",
+								"GetAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Maintenances For User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBiMmI2YjQ4MDc5MjhhOThmOGM2NyIsImlhdCI6MTY4MTk2NDA3NiwiZXhwIjoxNjgyMTM2ODc2fQ.D4iADjRuirD92FPaaF7B99s1pVvyTaugR_xldT6rN6A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/mntnc/api/GetUser",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mntnc",
+								"api",
+								"GetUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Maintenance",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBhY2M5NzhhZThmNDU5YzdjY2FmYSIsImlhdCI6MTY4MTk2MzU3MiwiZXhwIjoxNjgyMTM2MzcyfQ.0CYRNEWTNfBI0-MMH_x2Snlhh3C0OwtBASyvwt2JynI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"6440b87e0eed763fef08866c\",\n    \"status\":\"Processing\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/mntnc/api/edit",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"mntnc",
+								"api",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
