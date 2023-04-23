@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema(
     {
         username: {
             type: String,
-            required: true,
+            required: true
         },
         email: {
             type: String,
@@ -15,6 +15,11 @@ const UserSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
             validate: [validator, 'Invalid email']
+        },
+        isverified: {
+            type: Boolean,
+            required: true,
+            default: false
         },
         usertype: {
             type: String,
@@ -28,6 +33,14 @@ const UserSchema = new mongoose.Schema(
         image: {
             type: String,
             required: false,
+        },
+        contactNumber: {
+            type: Number,
+            required: true
+        },
+        floorNumber: {
+            type: Number,
+            required: true
         },
         otp: {
             type: Number,

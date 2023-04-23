@@ -2,25 +2,45 @@
 // package imports
 const Maintenance = require('../Models/MaintenanceModel.js')
 const User = require('../Models/UserModel.js')
+const Notification = require('../Models/NotificationModel.js')
 
 /** 
  * @description: This function is used to add a new maintenance request  
  */
 const AddMaintenance = async (req, res) => {
     try {
+        const admin = await User.findOne({ usertype: "admin" });
+        const user = await User.findById(req.id);
         const newMaintenance = new Maintenance({
             msg: req.body.msg,
             status: 'Pending',
+            category: req.body.category,
             user: req.id
-        })
+        });
+
+        const userSide = Notification({
+            title: "Maintenance Added",
+            des: `Your maintenance about ${req.body.category} has been added`,
+            user: req.id
+        });
+
+        const adminSide = Notification({
+            title: "Maintenance Requested",
+            des: `Maintenance about ${req.body.category} requested by ${user.username}`,
+            user: req.id
+        });
 
         const savedMaintenance = await newMaintenance.save()
+        const notify1 = await userSide.save();
+        const notify2 = await adminSide.save();
 
-        res.send({
-            message: "Your Data Saved Successfully",
-            status: 200,
-            data: savedMaintenance,
-        });
+        if (notify1 && notify2) {
+            res.send({
+                message: "Your Data Saved Successfully",
+                status: 200,
+                data: savedMaintenance,
+            });
+        }
     } catch (error) {
         res.send({
             message: "Data not Saved",
@@ -37,7 +57,7 @@ const getMaintenanceForAdmin = async (req, res) => {
         const user = await User.findById(req.id);
         if (user) {
             if (user.usertype === 'admin') {
-                const model = await Maintenance.find().populate({ path: 'user', select: '_id username image' });
+                const model = await Maintenance.find().populate({ path: 'user', select: '_id username image contactNumber floorNumber' });
 
                 if (model) {
                     res.send({
@@ -102,10 +122,27 @@ const editMaintenance = async (req, res) => {
             if (user.usertype === 'admin') {
                 const model = await Maintenance.findByIdAndUpdate(req.body.id, { status: req.body.status });
                 if (model) {
-                    res.send({
-                        message: "Data Updated",
-                        status: 200,
+                    const reqUser = await User.findbyId(model.user);
+
+                    const userSide = Notification({
+                        title: "Maintenance Updated",
+                        des: `Your maintenance about ${model.category} has been updated by admin`,
+                        user: reqUser.id
                     });
+
+                    const adminSide = Notification({
+                        title: "Maintenance Updated",
+                        des: `Maintenance about ${model.category} has been updated`,
+                        user: req.id
+                    })
+                    const notify1 = await userSide.save();
+                    const notify2 = await adminSide.save();
+                    if (notify1 && notify2) {
+                        res.send({
+                            message: "Data Updated",
+                            status: 200,
+                        });
+                    }
                 } else {
                     res.send({
                         message: "Data not Updated",

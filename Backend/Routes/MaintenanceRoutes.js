@@ -1,6 +1,6 @@
 // packages
 const router = require('express').Router();
-const Auth = require('../Constants/Authentication');
+const Auth = require('../Middleware/Authentication');
 const { AddMaintenance, getMaintenanceForAdmin, getMaintenanceForUser, editMaintenance } = require('../Controllers/MaintenanceControllers');
 
 // routes

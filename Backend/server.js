@@ -4,6 +4,7 @@ const { express, app, port, server, cors, database } = require('./Constants/Impo
 // constants
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
 
 // routes
 app.use('/user/api/', require('./Routes/UserRoutes'));

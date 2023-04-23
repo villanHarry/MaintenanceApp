@@ -1,21 +1,15 @@
 // import mongoose and validator
 const mongoose = require("mongoose");
-const validator = require("validator/lib/isEmail");
 
 //Schema
-const MaintenanceSchema = new mongoose.Schema(
+const NotificationSchema = new mongoose.Schema(
     {
-        msg: {
+        title: {
             type: String,
             required: true,
         },
-        category: {
+        des: {
             type: String,
-            required: true
-        },
-        status: {
-            type: String,
-            enum: ['Pending', 'Processing', 'Completed'],
             required: true
         },
         user: {
@@ -29,4 +23,4 @@ const MaintenanceSchema = new mongoose.Schema(
 );
 
 //exports
-module.exports = mongoose.model("Maintenance", MaintenanceSchema);
+module.exports = mongoose.model("Notification", NotificationSchema);

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "63410459-5ae0-44d0-a200-3969cd83ff6b",
+		"_postman_id": "f4a655df-ba40-47c5-a8e8-aabd031226d8",
 		"name": "MaintenanceApp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -18,7 +18,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"alif@email.com\",\n    \"password\":\"123\"\n}",
+							"raw": "{\n    \"email\":\"villanharry@gmail.com\",\n    \"password\":\"admin@123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -49,7 +49,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"username\":\"Admin\",\n\"email\":\"admin@gmail.com\",\n\"password\":\"admin@123\",\n\"image\":\"https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg\"\n}",
+							"raw": "{\n\"username\":\"Alif\",\n\"email\":\"villanharry@gmail.com\",\n\"password\":\"admin@123\",\n\"image\":\"https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg\",\n\"contact\":\"030000000000\",\n\"floor\":\"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,7 +80,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"admin@gmail.com\",\n    \"otp\":\"123456\"\n}",
+							"raw": "{\n    \"email\":\"maintenanceapp6@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -212,6 +212,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Notification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "L5lxIiGgn0ymKkGJNciCjZC8DgD8YT1IbmGeSO1ICy0F2WTOrDGEKEBDjlCH",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://maintenance-app.herokuapp.com/user/api/getNotification",
+							"protocol": "https",
+							"host": [
+								"maintenance-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user",
+								"api",
+								"getNotification"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -235,7 +267,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"msg\":\"Paani nai aa raha\"\n}",
+							"raw": "{\n    \"msg\":\"Paani nai aa raha\",\n    \"category\":\"Construction works\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
