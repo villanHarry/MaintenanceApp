@@ -6,6 +6,7 @@ class InputField extends StatefulWidget {
       required this.text,
       required this.controller,
       this.obscure = false,
+      this.inputType = TextInputType.text,
       this.suffix = const SizedBox(
         width: 0,
         height: 0,
@@ -15,6 +16,8 @@ class InputField extends StatefulWidget {
       this.onTap = defaultFunction,
       this.enable = true,
       this.fontSize = 18,
+      this.width = 0,
+      this.maxLength = 0,
       this.shadow = const BoxShadow(color: Colors.transparent)})
       : super(key: key);
 
@@ -30,6 +33,9 @@ class InputField extends StatefulWidget {
   final Widget suffix;
   final double fontSize;
   final BoxShadow shadow;
+  final TextInputType inputType;
+  final double width;
+  final int maxLength;
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -43,14 +49,17 @@ class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: widget.width == 0 ? width : widget.width,
       decoration: BoxDecoration(
           boxShadow:
               widget.shadow.color != Colors.transparent ? [widget.shadow] : []),
       child: TextFormField(
+        maxLength: widget.maxLength == 0 ? null : widget.maxLength,
         enabled: widget.enable,
         onTap: widget.onTap,
         controller: widget.controller,
         cursorColor: Colors.black,
+        keyboardType: widget.inputType,
         onEditingComplete: () {
           FocusScope.of(context).nextFocus();
         },
@@ -75,6 +84,7 @@ class _InputFieldState extends State<InputField> {
           fillColor: const Color.fromARGB(255, 250, 250, 250),
           filled: true,
           contentPadding: const EdgeInsets.all(20.0),
+          counterText: "",
           hintText: widget.hint,
           hintStyle: const TextStyle(fontSize: 18),
           floatingLabelStyle:

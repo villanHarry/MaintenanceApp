@@ -4,16 +4,28 @@ import 'package:intl/intl.dart';
 class RequestCard extends StatefulWidget {
   RequestCard(
       {Key? key,
-      this.dropDown = "Pending",
+      this.status = "Pending",
       this.admin = false,
+      this.isExpanded = false,
+      this.category = 'Construction works',
+      this.image = "",
+      this.username = "",
+      this.contactNumber = 0,
+      this.floorNumber = 0,
       this.message =
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       DateTime? date})
       : date = date ?? DateTime.now();
-  String dropDown;
+  String status;
   final bool admin;
+  final bool isExpanded;
   final String message;
+  final String category;
   final DateTime date;
+  final String image;
+  final String username;
+  final int contactNumber;
+  final int floorNumber;
 
   @override
   State<RequestCard> createState() => _RequestCardState();
@@ -23,7 +35,7 @@ class _RequestCardState extends State<RequestCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _heightFactorAnimation;
-  bool _isExpanded = false;
+  late bool _isExpanded = widget.isExpanded;
 
   @override
   void initState() {
@@ -49,38 +61,69 @@ class _RequestCardState extends State<RequestCard>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
-              onTap: () {
-                setState(() {
-                  _isExpanded = !_isExpanded;
-                  if (_isExpanded) {
-                    _controller.forward();
-                  } else {
-                    _controller.reverse();
-                  }
-                });
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    _isExpanded
-                        ? "Requests"
-                        : "Request: ${DateFormat("dd/MM/yyyy").format(widget.date).toString()}",
-                    style: TextStyle(
-                      color: const Color(0xFF082D50),
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
+            Padding(
+              padding:
+                  EdgeInsets.only(bottom: widget.admin && _isExpanded ? 10 : 0),
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    _isExpanded = !_isExpanded;
+                    if (_isExpanded) {
+                      _controller.forward();
+                    } else {
+                      _controller.reverse();
+                    }
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        widget.admin
+                            ? Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  height: 35.r,
+                                  width: 35.r,
+                                  decoration: const BoxDecoration(
+                                      color: Color(0xFF082D50),
+                                      shape: BoxShape.circle),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
+                        widget.admin
+                            ? Text(
+                                _isExpanded
+                                    ? "${widget.username.split(' ')[0]} : Request"
+                                    : "${widget.username.split(' ')[0]}: ${DateFormat("dd/MM/yyyy").format(widget.date).toString()}",
+                                style: TextStyle(
+                                  color: const Color(0xFF082D50),
+                                  fontSize: 17.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              )
+                            : Text(
+                                _isExpanded
+                                    ? "${widget.category.split(' ')[0]} Request"
+                                    : "Request: ${DateFormat("dd/MM/yyyy").format(widget.date).toString()}",
+                                style: TextStyle(
+                                  color: const Color(0xFF082D50),
+                                  fontSize: 17.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                      ],
                     ),
-                  ),
-                  Icon(
-                    _isExpanded
-                        ? Icons.keyboard_arrow_up_rounded
-                        : Icons.keyboard_arrow_down_rounded,
-                    color: const Color(0xFF082D50),
-                    size: 25.r,
-                  )
-                ],
+                    Icon(
+                      _isExpanded
+                          ? Icons.keyboard_arrow_up_rounded
+                          : Icons.keyboard_arrow_down_rounded,
+                      color: const Color(0xFF082D50),
+                      size: 25.r,
+                    )
+                  ],
+                ),
               ),
             ),
             AnimatedSize(
@@ -94,18 +137,98 @@ class _RequestCardState extends State<RequestCard>
                         color: Colors.grey.shade500,
                         thickness: 1,
                       ),
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: const Color(0xFF082D50),
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
+                      SizedBox(
+                        height: .015.sw,
+                      ),
+                      SizedBox(
+                        width: 1.sw,
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              color: const Color(0xFF082D50),
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            children: <TextSpan>[
+                              const TextSpan(
+                                  text: "Category: ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w600)),
+                              TextSpan(text: widget.category)
+                            ],
                           ),
-                          children: <TextSpan>[
-                            const TextSpan(
-                                text: "Message: ",
-                                style: TextStyle(fontWeight: FontWeight.w600)),
-                            TextSpan(text: widget.message)
+                        ),
+                      ),
+                      SizedBox(
+                        height: .015.sw,
+                      ),
+                      SizedBox(
+                        width: 1.sw,
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              color: const Color(0xFF082D50),
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            children: <TextSpan>[
+                              const TextSpan(
+                                  text: "Message: ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w600)),
+                              TextSpan(text: widget.message)
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: widget.admin,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 0.02.sh,
+                            ),
+                            SizedBox(
+                              width: 1.sw,
+                              child: RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                      color: const Color(0xFF082D50),
+                                      fontSize: 14.sp,
+                                      wordSpacing: 1.5),
+                                  children: <TextSpan>[
+                                    const TextSpan(
+                                        text: 'Contact No: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600)),
+                                    TextSpan(
+                                        text: widget.contactNumber.toString())
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.01.sh,
+                            ),
+                            SizedBox(
+                              width: 1.sw,
+                              child: RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                      color: const Color(0xFF082D50),
+                                      fontSize: 14.sp,
+                                      wordSpacing: 1.5),
+                                  children: <TextSpan>[
+                                    const TextSpan(
+                                        text: 'Floor No: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600)),
+                                    TextSpan(
+                                        text: widget.floorNumber.toString())
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -129,7 +252,7 @@ class _RequestCardState extends State<RequestCard>
                               ? SizedBox(
                                   width: 0.25.sw,
                                   child: DropdownButton<String>(
-                                      value: widget.dropDown,
+                                      value: widget.status,
                                       alignment: Alignment.centerLeft,
                                       iconEnabledColor: Colors.black,
                                       iconDisabledColor: Colors.grey,
@@ -144,7 +267,7 @@ class _RequestCardState extends State<RequestCard>
                                       ),
                                       borderRadius: BorderRadius.circular(8.r),
                                       hint: Text(
-                                        widget.dropDown,
+                                        widget.status,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           color: const Color(0xFF082D50),
@@ -170,12 +293,12 @@ class _RequestCardState extends State<RequestCard>
                                       }).toList(),
                                       onChanged: (String? newValue) {
                                         setState(() {
-                                          widget.dropDown = newValue!;
+                                          widget.status = newValue!;
                                         });
                                       }),
                                 )
                               : Text(
-                                  widget.dropDown,
+                                  widget.status,
                                   style: TextStyle(
                                     color: const Color(0xFF082D50),
                                     fontSize: 14.sp,

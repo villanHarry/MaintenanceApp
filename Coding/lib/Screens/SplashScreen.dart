@@ -12,7 +12,21 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(seconds: 3), () {
-        AppNavigation.replace(context, const LoginScreen());
+        if (Boxes.getUser().isEmpty) {
+          AppNavigation.replace(context, const LoginScreen());
+        } else {
+          final box = Boxes.getUser().values.first;
+          print(box.accessToken);
+          if (box.usertype == "admin") {
+            AppNavigation.popAll(
+                context,
+                const HomeScreen(
+                  admin: true,
+                ));
+          } else {
+            AppNavigation.popAll(context, const HomeScreen());
+          }
+        }
       });
     });
     // TODO: implement initState

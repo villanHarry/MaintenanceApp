@@ -254,7 +254,7 @@ const UserLogin = async (req, res) => {
                         id: user._id,
                     },
                     process.env.JWT_TOKEN,
-                    { expiresIn: "2d" }
+                    { expiresIn: "30d" }
                 );
 
                 const { token } = user._doc;

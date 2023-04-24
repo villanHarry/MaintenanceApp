@@ -11,7 +11,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserAdapter());
   await Hive.openBox<User>('User');
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: AppProviders().getAllProviders,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

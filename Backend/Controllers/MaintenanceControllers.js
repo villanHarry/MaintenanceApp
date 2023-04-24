@@ -27,7 +27,7 @@ const AddMaintenance = async (req, res) => {
         const adminSide = Notification({
             title: "Maintenance Requested",
             des: `Maintenance about ${req.body.category} requested by ${user.username}`,
-            user: req.id
+            user: admin.id
         });
 
         const savedMaintenance = await newMaintenance.save()
@@ -57,7 +57,9 @@ const getMaintenanceForAdmin = async (req, res) => {
         const user = await User.findById(req.id);
         if (user) {
             if (user.usertype === 'admin') {
-                const model = await Maintenance.find().populate({ path: 'user', select: '_id username image contactNumber floorNumber' });
+                const model = await Maintenance.find({
+                    status: req.body.status
+                }).populate({ path: 'user', select: '_id username image contactNumber floorNumber' });
 
                 if (model) {
                     res.send({

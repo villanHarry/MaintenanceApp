@@ -15,7 +15,6 @@ class _ProcessingRequestsState extends State<ProcessingRequests> {
     return Column(
       children: [
         RequestCard(
-          dropDown: 'Processing',
           admin: admin,
         ),
       ],

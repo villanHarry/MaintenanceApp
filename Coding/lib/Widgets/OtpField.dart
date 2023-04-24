@@ -23,6 +23,7 @@ class _OtpFieldState extends State<OtpField> {
       child: TextFormField(
         controller: widget.controller,
         cursorColor: Colors.black,
+        maxLength: 1,
         style: const TextStyle(fontSize: 18),
         onChanged: (value) {
           if (value.length == 1) {
@@ -33,6 +34,7 @@ class _OtpFieldState extends State<OtpField> {
         },
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
+          counterText: "",
           border: InputBorder.none,
           hintText: "0",
           fillColor: const Color.fromARGB(255, 250, 250, 250),

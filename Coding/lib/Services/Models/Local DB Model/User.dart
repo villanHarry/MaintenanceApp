@@ -15,4 +15,8 @@ class User extends HiveObject {
   late String usertype;
   @HiveField(5)
   late String image;
+  @HiveField(6)
+  late int contactNumber;
+  @HiveField(7)
+  late int floorNumber;
 }

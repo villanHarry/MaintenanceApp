@@ -9,8 +9,19 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen>
     with SingleTickerProviderStateMixin {
+  late final _controllerLoading = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  );
+
   @override
   void initState() {
+    _controllerLoading.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controllerLoading.reset();
+        _controllerLoading.forward();
+      }
+    });
     super.initState();
   }
 
@@ -27,9 +38,43 @@ class _NotificationScreenState extends State<NotificationScreen>
             SizedBox(
               height: 0.02.sh,
             ),
-            NotificationCard(),
-            NotificationCard(),
-            NotificationCard(),
+            FutureBuilder(
+                future: AuthAPI.notificationList(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<NotificationDatum>> snapshot) {
+                  if (snapshot.hasData) {
+                    return Expanded(
+                      child: ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return NotificationCard(
+                              title: snapshot.data![index].title,
+                              des: snapshot.data![index].des,
+                              time: snapshot.data![index].updatedAt,
+                            );
+                          }),
+                    );
+                  } else {
+                    return Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          color: Colors.transparent,
+                          width: 1.sw,
+                          height: .8.sh,
+                        ),
+                        Lottie.asset(AppAssets.loader,
+                            fit: BoxFit.fill,
+                            frameRate: FrameRate(60),
+                            width: .8.sw,
+                            controller: _controllerLoading,
+                            onLoaded: (composition) {
+                          _controllerLoading.forward();
+                        }),
+                      ],
+                    );
+                  }
+                }),
           ],
         ),
       ),
@@ -62,5 +107,12 @@ class _NotificationScreenState extends State<NotificationScreen>
             fontWeight: FontWeight.w400),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controllerLoading.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }

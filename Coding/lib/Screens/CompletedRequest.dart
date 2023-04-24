@@ -15,7 +15,6 @@ class _CompletedRequestsState extends State<CompletedRequests> {
     return Column(
       children: [
         RequestCard(
-          dropDown: 'Completed',
           admin: admin,
         ),
       ],

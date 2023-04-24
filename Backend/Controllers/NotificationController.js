@@ -4,7 +4,7 @@ const Notification = require('../Models/NotificationModel.js')
 
 const getNotification = async (req, res) => {
     try {
-        const model = await Notification.find({ _id: req.id });
+        const model = await Notification.find({ user: req.id });
         if (model) {
             res.send({
                 message: "Data Found",

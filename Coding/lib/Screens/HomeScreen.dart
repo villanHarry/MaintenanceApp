@@ -1,3 +1,5 @@
+import 'package:maintenance_app/Services/APIs/AuthAPI.dart';
+
 import '../Constants/AppImports.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,15 +11,28 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late final TabController tabController =
       TabController(length: 3, vsync: this);
   late final bool admin = widget.admin;
+  final currentUser = Boxes.getUser().values.first;
+  late final _controllerLoading = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  );
+
   bool onpressed = false;
   List<bool> isSelected = [true, false, false];
   String dropDown = "this week";
+  List<UserRequestDatum> requestList = [];
+
+  Future<bool> getRequests() async {
+    context
+        .read<RequestController>()
+        .setRequestList(await RequestAPI.userRequestList());
+    return true;
+  }
 
   @override
   void initState() {
@@ -29,6 +44,12 @@ class _HomeScreenState extends State<HomeScreen>
         });
       });
     }
+    _controllerLoading.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controllerLoading.reset();
+        _controllerLoading.forward();
+      }
+    });
   }
 
   tabSelection(int value) {
@@ -58,6 +79,8 @@ class _HomeScreenState extends State<HomeScreen>
                 backgroundColor: const Color(0xFF082D50),
                 onPressed: () {
                   showDialog(
+                    barrierDismissible: false,
+                    barrierColor: const Color(0xBB082D50),
                     context: context,
                     builder: (BuildContext context) {
                       return RequestPopup();
@@ -213,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen>
                             ],
                           ),
                           SizedBox(
-                            width: 0.25.sw,
+                            width: 0.3.sw,
                             child: DropdownButton<String>(
                                 value: dropDown,
                                 alignment: Alignment.centerLeft,
@@ -282,11 +305,59 @@ class _HomeScreenState extends State<HomeScreen>
                               CompletedRequests(),
                             ]),
                       )
-                    : Column(
-                        children: [
-                          RequestCard(),
-                        ],
-                      )
+                    : FutureBuilder(
+                        future: getRequests(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<bool> snapshot) {
+                          if (snapshot.hasData) {
+                            return Expanded(
+                              child: ListView.builder(
+                                  itemCount: context
+                                      .watch<RequestController>()
+                                      .getRequestList
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    return RequestCard(
+                                      message: context
+                                          .read<RequestController>()
+                                          .getRequestList[index]
+                                          .msg,
+                                      date: context
+                                          .read<RequestController>()
+                                          .getRequestList[index]
+                                          .createdAt,
+                                      status: context
+                                          .read<RequestController>()
+                                          .getRequestList[index]
+                                          .status,
+                                      category: context
+                                          .read<RequestController>()
+                                          .getRequestList[index]
+                                          .category,
+                                    );
+                                  }),
+                            );
+                          } else {
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  color: Colors.transparent,
+                                  width: 1.sw,
+                                  height: .8.sh,
+                                ),
+                                Lottie.asset(AppAssets.loader,
+                                    fit: BoxFit.fill,
+                                    frameRate: FrameRate(60),
+                                    width: .8.sw,
+                                    controller: _controllerLoading,
+                                    onLoaded: (composition) {
+                                  _controllerLoading.forward();
+                                }),
+                              ],
+                            );
+                          }
+                        })
               ],
             ),
           ),
@@ -343,9 +414,9 @@ class _HomeScreenState extends State<HomeScreen>
         padding: EdgeInsets.fromLTRB(0, 0.01.sw, 0, 0),
         child: Container(
             height: 1.sh,
-            width: .8.sw,
+            width: .85.sw,
             decoration: BoxDecoration(
-              color: const Color(0xFF082D50),
+              color: const Color(0xFFEEEFF1),
               borderRadius: BorderRadius.horizontal(
                 right: Radius.circular(20.r),
               ),
@@ -362,7 +433,7 @@ class _HomeScreenState extends State<HomeScreen>
                             scaffoldKey.currentState!.closeDrawer(),
                         icon: Icon(
                           Icons.close_rounded,
-                          color: Colors.white,
+                          color: const Color(0xFF082D50),
                           size: 25.r,
                         ))
                   ],
@@ -370,21 +441,46 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 0.05.sh, 0, 0),
-                child: Container(
-                  width: 0.4.sw,
-                  height: 0.4.sw,
-                  decoration: BoxDecoration(
+                child: CachedNetworkImage(
+                  imageUrl: currentUser.image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 0.4.sw,
+                    height: 0.4.sw,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
+                    ),
+                  ),
+                  progressIndicatorBuilder: (context, url, progress) =>
+                      Container(
+                    width: 0.4.sw,
+                    height: 0.4.sw,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.grey.shade300,
-                      border: Border.all()),
+                      border: Border.all(
+                        color: const Color(0xFF082D50),
+                      ),
+                    ),
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                      strokeWidth: 2.5,
+                      color: const Color(0xDA082D50),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    color: Color(0xFF082D50),
+                  ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(0, 0.02.sh, 0, 0),
                 child: Text(
-                  "User Name",
+                  currentUser.username,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: const Color(0xFF082D50),
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w400,
                   ),
@@ -392,24 +488,95 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               Padding(
                   padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
-                  child: Text("user@email.com",
+                  child: Text(currentUser.email,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                      ))),
+                          color: const Color(0xFF082D50),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic))),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
+                  child: SizedBox(
+                    width: 0.52.sw,
+                    child: RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                            color: const Color(0xFF082D50),
+                            fontSize: 14.5.sp,
+                            wordSpacing: 1.5),
+                        children: <TextSpan>[
+                          const TextSpan(
+                              text: 'Contact No: ',
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          TextSpan(
+                              text:
+                                  '0${currentUser.contactNumber.toString().substring(0, 3)}-${currentUser.contactNumber.toString().substring(4)}')
+                        ],
+                      ),
+                    ),
+                  )),
+              Visibility(
+                visible: !widget.admin,
+                child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
+                    child: SizedBox(
+                      width: 0.52.sw,
+                      child: RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                              color: const Color(0xFF082D50),
+                              fontSize: 14.5.sp,
+                              wordSpacing: 1.5),
+                          children: <TextSpan>[
+                            const TextSpan(
+                                text: 'Floor No: ',
+                                style: TextStyle(fontWeight: FontWeight.w600)),
+                            TextSpan(text: currentUser.floorNumber.toString()),
+                          ],
+                        ),
+                      ),
+                    )),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 0.025.sh),
                 child: SizedBox(
-                  width: 0.6.sw,
-                  child: Divider(
-                    color: Colors.white,
-                    thickness: 1,
+                  width: 0.65.sw,
+                  child: const Divider(
+                    color: Color(0xFF082D50),
+                    thickness: 1.25,
                   ),
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
+                  padding: EdgeInsets.fromLTRB(.04.sw, 0.01.sh, 0, 0),
+                  child: InkWell(
+                    onTap: () {
+                      scaffoldKey.currentState!.closeDrawer();
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0.05.sw, 0, 0, 0),
+                          child: Icon(
+                            Icons.edit,
+                            color: const Color(0xFF082D50),
+                            size: 25.r,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 0.025.sw,
+                        ),
+                        Text("Edit Profile",
+                            style: TextStyle(
+                              color: const Color(0xFF082D50),
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w400,
+                            ))
+                      ],
+                    ),
+                  )),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(.04.sw, 0.03.sh, 0, 0),
                   child: InkWell(
                     onTap: () {
                       scaffoldKey.currentState!.closeDrawer();
@@ -425,7 +592,7 @@ class _HomeScreenState extends State<HomeScreen>
                           padding: EdgeInsets.fromLTRB(0.05.sw, 0, 0, 0),
                           child: Icon(
                             Icons.lock,
-                            color: Colors.white,
+                            color: const Color(0xFF082D50),
                             size: 25.r,
                           ),
                         ),
@@ -434,7 +601,7 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                         Text("Change Password",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: const Color(0xFF082D50),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w400,
                             ))
@@ -442,9 +609,10 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                   )),
               Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0.03.sh, 0, 0),
+                  padding: EdgeInsets.fromLTRB(.04.sw, 0.03.sh, 0, 0),
                   child: InkWell(
                     onTap: () {
+                      AuthAPI.logout();
                       AppNavigation.popAll(context, const LoginScreen());
                     },
                     child: Row(
@@ -453,7 +621,7 @@ class _HomeScreenState extends State<HomeScreen>
                           padding: EdgeInsets.fromLTRB(0.05.sw, 0, 0, 0),
                           child: Icon(
                             Icons.power_settings_new_rounded,
-                            color: Colors.white,
+                            color: const Color(0xFF082D50),
                             size: 25.r,
                           ),
                         ),
@@ -462,7 +630,7 @@ class _HomeScreenState extends State<HomeScreen>
                         ),
                         Text("Logout",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: const Color(0xFF082D50),
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w400,
                             ))
@@ -470,5 +638,12 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                   ))
             ])));
+  }
+
+  @override
+  void dispose() {
+    _controllerLoading.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }

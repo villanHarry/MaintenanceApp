@@ -1,7 +1,16 @@
 import '../Constants/AppImports.dart';
 
 class NotificationCard extends StatefulWidget {
-  const NotificationCard({Key? key}) : super(key: key);
+  NotificationCard(
+      {Key? key,
+      this.title = "Request Accepted",
+      this.des = "Your request has been accepted by the service provider",
+      DateTime? time})
+      : time = time ?? DateTime.now();
+
+  final String title;
+  final String des;
+  final DateTime time;
 
   @override
   State<NotificationCard> createState() => _NotificationCardState();
@@ -23,7 +32,7 @@ class _NotificationCardState extends State<NotificationCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Request Accepted",
+                widget.title,
                 style: TextStyle(
                     color: const Color(0xFF082D50),
                     fontSize: 16.sp,
@@ -33,7 +42,7 @@ class _NotificationCardState extends State<NotificationCard> {
                 height: 0.01.sh,
               ),
               Text(
-                "Your request has been accepted by the service provider",
+                widget.des,
                 style: TextStyle(
                     color: const Color(0xFF082D50),
                     fontSize: 14.sp,
@@ -46,7 +55,7 @@ class _NotificationCardState extends State<NotificationCard> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "12:00 PM",
+                    TimeOfDay.fromDateTime(widget.time).format(context),
                     style: TextStyle(
                         color: const Color(0xFF082D50),
                         fontSize: 14.sp,

@@ -14,7 +14,7 @@ class _PendingRequestsState extends State<PendingRequests> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RequestCard(dropDown: 'Pending', admin: admin),
+        RequestCard(admin: admin),
       ],
     );
   }
