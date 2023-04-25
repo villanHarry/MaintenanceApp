@@ -28,6 +28,32 @@ class RequestAPI extends API {
     }
   }
 
+  /*
+   * description: get all maintenance requests of admin
+   */
+  static Future<List<AdminRequestDatum>> adminRequestList(String status) async {
+    final String accessToken = Boxes.getUser().values.first.accessToken;
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    var request = http.Request('GET', Uri.parse('$requestUrl/GetAdmin'));
+    request.body = json.encode({"status": status});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      http.Response res = await http.Response.fromStream(response);
+      final model = adminRequestModelFromJson(res.body);
+
+      return model.data;
+    } else {
+      return [];
+    }
+  }
+
   static Future<bool> addRequest(String category, String msg) async {
     final String accessToken = Boxes.getUser().values.first.accessToken;
 
@@ -45,6 +71,33 @@ class RequestAPI extends API {
       http.Response res = await http.Response.fromStream(response);
       final model = signUpModelFromJson(res.body);
       if (model.message == "Your Data Saved Successfully") {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      print(response.reasonPhrase);
+      return false;
+    }
+  }
+
+  static Future<bool> editRequest(String id, String status) async {
+    final String accessToken = Boxes.getUser().values.first.accessToken;
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    var request = http.Request('GET', Uri.parse('$requestUrl/edit'));
+    request.body = json.encode({"id": id, "status": status});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      http.Response res = await http.Response.fromStream(response);
+      final model = signUpModelFromJson(res.body);
+      if (model.message == "Data Updated") {
         return true;
       } else {
         return false;

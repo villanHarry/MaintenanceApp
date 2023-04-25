@@ -1,3 +1,3 @@
 class AppConstant {
-  List<String> statusList = ['Pending', 'Processing', 'Completed'];
+  static final List<String> statusList = ["Pending", "Processing", "Completed"];
 }

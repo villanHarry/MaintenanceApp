@@ -547,7 +547,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              Padding(
+              /*Padding(
                   padding: EdgeInsets.fromLTRB(.04.sw, 0.01.sh, 0, 0),
                   child: InkWell(
                     onTap: () {
@@ -574,9 +574,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             ))
                       ],
                     ),
-                  )),
+                  )),*/
               Padding(
-                  padding: EdgeInsets.fromLTRB(.04.sw, 0.03.sh, 0, 0),
+                  padding: EdgeInsets.fromLTRB(.04.sw, 0.01.sh, 0, 0),
                   child: InkWell(
                     onTap: () {
                       scaffoldKey.currentState!.closeDrawer();

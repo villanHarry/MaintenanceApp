@@ -59,7 +59,8 @@ const getMaintenanceForAdmin = async (req, res) => {
             if (user.usertype === 'admin') {
                 const model = await Maintenance.find({
                     status: req.body.status
-                }).populate({ path: 'user', select: '_id username image contactNumber floorNumber' });
+                }).populate({ path: 'user', select: '_id username image contactNumber floorNumber' })
+                .sort({'updatedAt': -1});
 
                 if (model) {
                     res.send({
@@ -99,7 +100,7 @@ const getMaintenanceForAdmin = async (req, res) => {
  */
 const getMaintenanceForUser = async (req, res) => {
 
-    const model = await Maintenance.find({ user: req.id });
+    const model = await Maintenance.find({ user: req.id }).sort({'updatedAt': -1});
     if (model) {
         res.send({
             message: "Data Found",
@@ -122,9 +123,14 @@ const editMaintenance = async (req, res) => {
         const user = await User.findById(req.id);
         if (user) {
             if (user.usertype === 'admin') {
-                const model = await Maintenance.findByIdAndUpdate(req.body.id, { status: req.body.status });
+                const model = await Maintenance.findOneAndUpdate(req.body.id,
+                    {
+                        $set:{
+                            status: req.body.status
+                        }
+                    });
                 if (model) {
-                    const reqUser = await User.findbyId(model.user);
+                    const reqUser = await User.findOne({_id:model.user});
 
                     const userSide = Notification({
                         title: "Maintenance Updated",

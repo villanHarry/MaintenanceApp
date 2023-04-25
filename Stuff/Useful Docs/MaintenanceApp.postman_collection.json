@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f4a655df-ba40-47c5-a8e8-aabd031226d8",
+		"_postman_id": "d2a1b223-84b4-42d6-9d1d-e2ce48107ef1",
 		"name": "MaintenanceApp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -221,7 +221,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "L5lxIiGgn0ymKkGJNciCjZC8DgD8YT1IbmGeSO1ICy0F2WTOrDGEKEBDjlCH",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY3Y2ZlZmNhZTAxODExNDdmZmM4NCIsImlhdCI6MTY4MjM0MTYxMywiZXhwIjoxNjgyNTE0NDEzfQ.IVVKrD9_ezFcGNgSGnrQJOfg3Ml7jEvuvXiCqSzT-Og",
 									"type": "string"
 								}
 							]
@@ -258,7 +258,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBiMmI2YjQ4MDc5MjhhOThmOGM2NyIsImlhdCI6MTY4MTk2MzEyNCwiZXhwIjoxNjgyMTM1OTI0fQ.JjJQE58gc9jXZFrai7IztGTUYOaerGv-MuLw3zfzu1w",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY3Y2ZlZmNhZTAxODExNDdmZmM4NCIsImlhdCI6MTY4MjM0MTYxMywiZXhwIjoxNjgyNTE0NDEzfQ.IVVKrD9_ezFcGNgSGnrQJOfg3Ml7jEvuvXiCqSzT-Og",
 									"type": "string"
 								}
 							]
@@ -267,7 +267,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"msg\":\"Paani nai aa raha\",\n    \"category\":\"Construction works\"\n}",
+							"raw": "{\n    \"msg\":\"Ceiling is cracking.\",\n    \"category\":\"Construction works\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -293,6 +293,9 @@
 				},
 				{
 					"name": "Get Maintenances For Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -306,6 +309,15 @@
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":\"Pending\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "https://maintenance-app.herokuapp.com/mntnc/api/GetAdmin",
 							"protocol": "https",
@@ -331,7 +343,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBiMmI2YjQ4MDc5MjhhOThmOGM2NyIsImlhdCI6MTY4MTk2NDA3NiwiZXhwIjoxNjgyMTM2ODc2fQ.D4iADjRuirD92FPaaF7B99s1pVvyTaugR_xldT6rN6A",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY3Y2ZlZmNhZTAxODExNDdmZmM4NCIsImlhdCI6MTY4MjM0MTYxMywiZXhwIjoxNjgyNTE0NDEzfQ.IVVKrD9_ezFcGNgSGnrQJOfg3Ml7jEvuvXiCqSzT-Og",
 									"type": "string"
 								}
 							]

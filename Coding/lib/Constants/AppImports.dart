@@ -53,6 +53,7 @@ export '../Services/Models/SignUpModel.dart';
 export '../Services/Models/Local DB Model/User.dart';
 export '../Services/Models/Local DB Model/Boxes.dart';
 export '../Services/Models/UserRequestModel.dart';
+export '../Services/Models/AdminRequestModel.dart';
 export '../Services/Models/NotificationModel.dart';
 
 //services

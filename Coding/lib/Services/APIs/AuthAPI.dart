@@ -51,7 +51,6 @@ class AuthAPI extends API {
   /*
    * description: Function to signup user
    */
-
   static Future<bool> signup(
       BuildContext context,
       String username,
@@ -93,6 +92,95 @@ class AuthAPI extends API {
   }
 
   /*
+   * description: Function to send user otp to email
+   */
+  static Future<bool> forgotPassword(BuildContext context, String email) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse('$authUrl/forgotpassword'));
+    request.body = json.encode({"email": email});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      http.Response res = await http.Response.fromStream(response);
+      final model = signUpModelFromJson(res.body);
+      if (model.message == "Otp Inserted Successfully") {
+        return true;
+      } else {
+        AppNavigation.showSnackBar(context: context, content: model.message);
+        return false;
+      }
+    } else {
+      AppNavigation.showSnackBar(
+          context: context,
+          content:
+              'Internal Error ${response.statusCode}: ${response.reasonPhrase}');
+      return false;
+    }
+  }
+
+  /*
+   * description: Function to verify user otp
+   */
+  static Future<bool> otpVerification(
+      BuildContext context, String email, String otp) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse('$authUrl/verify'));
+    request.body = json.encode({"email": email, "otp": otp});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      http.Response res = await http.Response.fromStream(response);
+      final model = signUpModelFromJson(res.body);
+      if (model.message == "OTP Matched") {
+        return true;
+      } else {
+        AppNavigation.showSnackBar(context: context, content: model.message);
+        return false;
+      }
+    } else {
+      AppNavigation.showSnackBar(
+          context: context,
+          content:
+              'Internal Error ${response.statusCode}: ${response.reasonPhrase}');
+      return false;
+    }
+  }
+
+  /*
+   * description: Function to reset pass
+   */
+  static Future<bool> resetPass(
+      BuildContext context, String email, String pass) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('POST', Uri.parse('$authUrl/resetPass'));
+    request.body = json.encode({"email": email, "password": pass});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      http.Response res = await http.Response.fromStream(response);
+      final model = signUpModelFromJson(res.body);
+      if (model.message == "Password Reset Successfully") {
+        return true;
+      } else {
+        AppNavigation.showSnackBar(context: context, content: model.message);
+        return false;
+      }
+    } else {
+      AppNavigation.showSnackBar(
+          context: context,
+          content:
+              'Internal Error ${response.statusCode}: ${response.reasonPhrase}');
+      return false;
+    }
+  }
+
+  /*
    * description: Function to get user notification list
    */
   static Future<List<NotificationDatum>> notificationList() async {
@@ -111,6 +199,40 @@ class AuthAPI extends API {
       return model.data;
     } else {
       return [];
+    }
+  }
+
+  /*
+   * description: Function to change pass
+   */
+  static Future<bool> changePass(BuildContext context, String pass) async {
+    final String accessToken = Boxes.getUser().values.first.accessToken;
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $accessToken'
+    };
+    var request = http.Request('POST', Uri.parse('$authUrl/changePass'));
+    request.body = json.encode({"password": pass});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      http.Response res = await http.Response.fromStream(response);
+      final model = signUpModelFromJson(res.body);
+      if (model.message == "Password Changed Successfully") {
+        return true;
+      } else {
+        AppNavigation.showSnackBar(context: context, content: model.message);
+        return false;
+      }
+    } else {
+      AppNavigation.showSnackBar(
+          context: context,
+          content:
+              'Internal Error ${response.statusCode}: ${response.reasonPhrase}');
+      return false;
     }
   }
 
