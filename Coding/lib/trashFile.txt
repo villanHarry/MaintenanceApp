@@ -1,0 +1,12 @@
+appBar: AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              centerTitle: true,
+              title: Text(
+                "Login",
+                style: TextStyle(
+                    color: const Color(0xFF082D50),
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w400),
+              ),
+            ),

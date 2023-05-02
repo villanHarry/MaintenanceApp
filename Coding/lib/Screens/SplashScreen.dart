@@ -41,21 +41,11 @@ class _SplashScreenState extends State<SplashScreen> {
           height: 1.sh,
           width: 1.sw,
           decoration: const BoxDecoration(
-            //color: Color.fromARGB(255, 194, 194, 194),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.0, 0.4, 0.7],
-              colors: [
-                Colors.white,
-                Color(0xFFEEEFF1),
-                Color(0xFFC2C2C2),
-              ],
-            ),
+            color: Color(0xFFFAFAFA),
             image: DecorationImage(
               image: AssetImage(AppAssets.bg),
               fit: BoxFit.contain,
-              opacity: 0.4,
+              opacity: 0.5,
               alignment: Alignment.bottomCenter,
             ),
           ),
@@ -63,7 +53,18 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              Container(
+              Image.asset(
+                AppAssets.logo,
+                height: 0.2.sh,
+                width: 0.2.sh,
+              ),
+              Text("Welcome to \nGPS Help Desk",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: const Color(0xFF616161),
+                    fontSize: 18.sp,
+                  )),
+              /*Container(
                 padding: EdgeInsets.all(0.08.sh),
                 decoration: BoxDecoration(
                     color: const Color(0xFFEEEFF1),
@@ -84,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       'Welcome to',
                       style: TextStyle(
                         color: const Color(0xFF082D50),
-                        fontSize: 20.sp,
+                        fontSize: 17.sp,
                         fontWeight: FontWeight.w300,
                       ),
                     ),
@@ -98,8 +99,28 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ],
                 ),
-              ),
+              ),*/
               const Spacer(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 22.h, vertical: 5.h),
+                decoration: BoxDecoration(
+                    color: const Color(0xFFFAFAFA).withOpacity(0.8),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(.1),
+                          blurRadius: 10,
+                          offset: const Offset(0, 8))
+                    ]),
+                child: Text("Powered by Nexovia Digital",
+                    style: TextStyle(
+                      color: const Color(0xFF616161),
+                      fontSize: 15.sp,
+                    )),
+              ),
+              SizedBox(
+                height: 25.h,
+              ),
               LinearProgressIndicator(
                 minHeight: 4.h,
                 backgroundColor: const Color(0xFFC2C2C2),

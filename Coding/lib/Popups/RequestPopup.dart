@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:intl/intl.dart';
+
 import '../Constants/AppImports.dart';
 
 class RequestPopup extends StatefulWidget {
@@ -10,6 +12,8 @@ class RequestPopup extends StatefulWidget {
 class _RequestPopupState extends State<RequestPopup> {
   final _formKey = GlobalKey<FormState>();
   final _messageController = TextEditingController();
+  final _dateController = TextEditingController();
+  final _timeController = TextEditingController();
   final _controller = TextEditingController();
   String dropDown = "Select a Category";
   bool onpressed = false;
@@ -18,25 +22,25 @@ class _RequestPopupState extends State<RequestPopup> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(.05.sw),
       ),
       title: Container(
-        height: .17.sw,
-        padding: const EdgeInsets.all(18),
+        height: .14.sw,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: const BoxDecoration(
-            color: Color(0xFF082D50),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(10))),
+            color: Color(0xFF0C58A0),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15))),
         child: Row(
           children: [
             const Spacer(
               flex: 3,
             ),
-            const Text(
+            Text(
               'Request',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 17.sp,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -57,18 +61,35 @@ class _RequestPopupState extends State<RequestPopup> {
           ],
         ),
       ),
-      insetPadding: const EdgeInsets.symmetric(horizontal: 22.5),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20),
       titlePadding: const EdgeInsets.all(0),
       contentPadding: const EdgeInsets.only(top: 8),
       actionsPadding: const EdgeInsets.all(0),
       content: Container(
         padding: const EdgeInsets.all(18),
-        width: MediaQuery.of(context).size.width / 1.3,
+        width: .85.sw,
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: 1.sw,
+                decoration: BoxDecoration(
+                    color: const Color(0xFFFAFAFA),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: const Color(0xFFABAAAC))),
+                child: const Center(
+                  child: Icon(
+                    Icons.add,
+                    color: Color(0xFFABAAAC),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: .03.sh,
+              ),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -76,23 +97,23 @@ class _RequestPopupState extends State<RequestPopup> {
                     height: .06.sh,
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
-                        color: const Color(0xFFEEEFF1),
+                        color: const Color(0xFFFAFAFA),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey)),
+                        border: Border.all(color: const Color(0xFFABAAAC))),
                     child: SizedBox(
                       width: 1.sw,
                       child: DropdownButton<String>(
                           value: dropDown,
                           alignment: Alignment.centerLeft,
-                          iconEnabledColor: Colors.black,
-                          iconDisabledColor: Colors.grey,
+                          iconEnabledColor: const Color(0xFF616161),
+                          iconDisabledColor: const Color(0xFFABAAAC),
                           iconSize: 20.r,
                           isExpanded: true,
                           icon: const Align(
                             alignment: Alignment.centerRight,
                             child: Icon(
                               Icons.keyboard_arrow_down_sharp,
-                              color: Colors.grey,
+                              color: Color(0xFFABAAAC),
                             ),
                           ),
                           borderRadius: BorderRadius.circular(8.r),
@@ -100,7 +121,7 @@ class _RequestPopupState extends State<RequestPopup> {
                             "Select a Category",
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                              color: const Color(0xFF082D50),
+                              color: const Color(0xFFABAAAC),
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
                             ),
@@ -135,13 +156,14 @@ class _RequestPopupState extends State<RequestPopup> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  backgroundColor: const Color(0xFF082D50),
+                                  backgroundColor: const Color(0xFFFAFAFA),
                                   content: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
                                       Text(
                                         "Please select a category",
-                                        style: TextStyle(color: Colors.white),
+                                        style:
+                                            TextStyle(color: Color(0xFF616161)),
                                       ),
                                     ],
                                   ),
@@ -154,13 +176,14 @@ class _RequestPopupState extends State<RequestPopup> {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  backgroundColor: const Color(0xFF082D50),
+                                  backgroundColor: const Color(0xFFFAFAFA),
                                   content: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
                                       Text(
                                         "Enter a reason",
-                                        style: TextStyle(color: Colors.white),
+                                        style:
+                                            TextStyle(color: Color(0xFF616161)),
                                       ),
                                     ],
                                   ),
@@ -199,13 +222,12 @@ class _RequestPopupState extends State<RequestPopup> {
                         height: .06.sh,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         decoration: BoxDecoration(
-                            color: const Color(0xFFEEEFF1),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.grey)),
+                            color: const Color(0xFFFAFAFA),
+                            borderRadius: BorderRadius.circular(.025.sw),
+                            border: Border.all(color: const Color(0xFFABAAAC))),
                         child: TextFormField(
                           enabled: !onpressed,
                           controller: _controller,
-                          cursorColor: const Color(0xFF082D50),
                           decoration: const InputDecoration(
                             hintText: 'Reason',
                             border: InputBorder.none,
@@ -223,17 +245,98 @@ class _RequestPopupState extends State<RequestPopup> {
               SizedBox(
                 height: .03.sh,
               ),
+              InkWell(
+                onTap: () {
+                  showDatePicker(
+                    context: context,
+                    initialDate: DateTime(DateTime.now().year),
+                    firstDate: DateTime(1980, 1, 1),
+                    lastDate: DateTime(DateTime.now().year,
+                        DateTime.now().month, DateTime.now().day),
+                  ).then((value) {
+                    if (value != null) {
+                      setState(() {
+                        _dateController.text =
+                            DateFormat("dd/MM/yyyy").format(value);
+                      });
+                    }
+                  });
+                },
+                child: Container(
+                  height: .06.sh,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFFAFAFA),
+                      borderRadius: BorderRadius.circular(.025.sw),
+                      border: Border.all(color: const Color(0xFFABAAAC))),
+                  child: TextFormField(
+                    enabled: false,
+                    controller: _dateController,
+                    decoration: const InputDecoration(
+                      hintText: 'Preferred Date',
+                      border: InputBorder.none,
+                    ),
+                    validator: (value) {
+                      if (dropDown == "Others" && value!.isEmpty) {
+                        return 'Please enter a Reason';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: .03.sh,
+              ),
+              InkWell(
+                onTap: () {
+                  showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.fromDateTime(DateTime.now()))
+                      .then((value) {
+                    if (value != null) {
+                      setState(() {
+                        _timeController.text = value.format(context);
+                      });
+                    }
+                  });
+                },
+                child: Container(
+                  height: .06.sh,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFFAFAFA),
+                      borderRadius: BorderRadius.circular(.025.sw),
+                      border: Border.all(color: const Color(0xFFABAAAC))),
+                  child: TextFormField(
+                    enabled: false,
+                    controller: _timeController,
+                    decoration: const InputDecoration(
+                      hintText: 'Preferred Time',
+                      border: InputBorder.none,
+                    ),
+                    validator: (value) {
+                      if (dropDown == "Others" && value!.isEmpty) {
+                        return 'Please enter a Reason';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: .03.sh,
+              ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.2,
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                    color: const Color(0xFFEEEFF1),
+                    color: const Color(0xFFFAFAFA),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey)),
+                    border: Border.all(color: const Color(0xFFABAAAC))),
                 child: TextFormField(
                   enabled: !onpressed,
                   controller: _messageController,
-                  cursorColor: const Color(0xFF082D50),
                   decoration: const InputDecoration(
                     hintText: 'Message',
                     border: InputBorder.none,
@@ -285,17 +388,17 @@ class _RequestPopupState extends State<RequestPopup> {
                 },
                 child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    height: MediaQuery.of(context).size.height / 14,
+                    height: .06.sh,
                     decoration: BoxDecoration(
-                        color: const Color(0xFF082D50),
-                        borderRadius: BorderRadius.circular(10)),
+                        color: const Color(0xFF0764BB),
+                        borderRadius: BorderRadius.circular(.03.sw)),
                     child: Center(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text("Send${onpressed ? "..." : ""}",
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 16.sp)),
+                                  color: Colors.white, fontSize: 14.sp)),
                           AnimatedOpacity(
                             opacity: onpressed ? 1.0 : 0.0,
                             duration: const Duration(milliseconds: 1000),
@@ -317,6 +420,9 @@ class _RequestPopupState extends State<RequestPopup> {
                         ],
                       ),
                     )))),
+        SizedBox(
+          height: .01.sh,
+        ),
       ],
     );
   }

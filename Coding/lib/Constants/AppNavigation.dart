@@ -62,9 +62,9 @@ class AppNavigation {
                       width: width * 0.5,
                       child: Text(
                         content,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: const Color(0xFF616161),
                         ),
                       ),
                     ),
@@ -72,7 +72,7 @@ class AppNavigation {
                 ],
               ),
               decoration: BoxDecoration(
-                  color: const Color(0xFF082D50),
+                  color: const Color(0xFFFAFAFA),
                   borderRadius: BorderRadius.circular(10)),
             ),
           ),

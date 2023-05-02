@@ -72,12 +72,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Scaffold(
         key: scaffoldKey,
         drawerEnableOpenDragGesture: true,
-        backgroundColor: const Color(0xFFEEEFF1),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        backgroundColor: const Color(0xFFFAFAFA),
         floatingActionButton: admin
             ? null
-            : FloatingActionButton(
-                backgroundColor: const Color(0xFF082D50),
-                onPressed: () {
+            : InkWell(
+                onTap: () {
                   showDialog(
                     barrierDismissible: false,
                     barrierColor: const Color(0xBB082D50),
@@ -87,10 +87,28 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     },
                   );
                 },
-                child: Icon(
-                  Icons.add,
-                  size: 20.r,
-                ),
+                child: Container(
+                    width: 0.22.sw,
+                    height: 0.22.sw,
+                    padding: EdgeInsets.all(10.r),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFFAFAFA),
+                        border: Border.all(
+                          color: const Color(0xFF616161).withOpacity(0.15),
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 7,
+                            spreadRadius: 2,
+                            offset: const Offset(0, 0),
+                          )
+                        ],
+                        shape: BoxShape.circle),
+                    child: Image.asset(
+                      AppAssets.logo,
+                    )),
               ),
         drawer: homeDrawer(),
         appBar: homeAppBar(),
@@ -112,14 +130,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             }
             return false;
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22.5),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 0.02.sh,
-                ),
-                Visibility(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 0.02.sh,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22.5),
+                child: Visibility(
                   visible: admin,
                   child: Column(
                     children: [
@@ -133,9 +151,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: Container(
                                 padding: EdgeInsets.all(15.r),
                                 decoration: BoxDecoration(
+                                  gradient: isSelected[0]
+                                      ? const LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          stops: [0.2, 1.0],
+                                          colors: [
+                                            Color(0xFF8BC7FF),
+                                            Color(0xFF0764BB),
+                                          ],
+                                        )
+                                      : null,
                                   color: isSelected[0]
-                                      ? const Color(0xFF082D50)
-                                      : Colors.grey.shade300,
+                                      ? Colors.white
+                                      : const Color(0xFFE6E6E6),
                                   borderRadius: BorderRadius.horizontal(
                                       left: Radius.circular(10.r)),
                                 ),
@@ -144,9 +173,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: !isSelected[0]
-                                        ? const Color(0xFF082D50)
+                                        ? const Color(0xFF616161)
                                         : Colors.white,
-                                    fontSize: 13.sp,
+                                    fontSize: !isSelected[0] ? 12.sp : 13.5.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -161,21 +190,32 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: Container(
                                 padding: EdgeInsets.all(15.r),
                                 decoration: BoxDecoration(
+                                    gradient: isSelected[1]
+                                        ? const LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            stops: [0.2, 1.0],
+                                            colors: [
+                                              Color(0xFF8BC7FF),
+                                              Color(0xFF0764BB),
+                                            ],
+                                          )
+                                        : null,
                                     color: isSelected[1]
-                                        ? const Color(0xFF082D50)
-                                        : Colors.grey.shade300,
+                                        ? Colors.white
+                                        : const Color(0xFFE6E6E6),
                                     border: Border.symmetric(
                                         vertical: BorderSide(
-                                            color: const Color(0xFF082D50),
-                                            width: 0.2.w))),
+                                            color: const Color(0xFFFAFAFA),
+                                            width: 0.8.w))),
                                 child: Text(
                                   "Processing",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: !isSelected[1]
-                                        ? const Color(0xFF082D50)
+                                        ? const Color(0xFF616161)
                                         : Colors.white,
-                                    fontSize: 13.sp,
+                                    fontSize: !isSelected[1] ? 12.sp : 13.5.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -190,9 +230,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               child: Container(
                                 padding: EdgeInsets.all(15.r),
                                 decoration: BoxDecoration(
+                                  gradient: isSelected[2]
+                                      ? const LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          stops: [0.2, 1.0],
+                                          colors: [
+                                            Color(0xFF8BC7FF),
+                                            Color(0xFF0764BB),
+                                          ],
+                                        )
+                                      : null,
                                   color: isSelected[2]
-                                      ? const Color(0xFF082D50)
-                                      : Colors.grey.shade300,
+                                      ? Colors.white
+                                      : const Color(0xFFE6E6E6),
                                   borderRadius: BorderRadius.horizontal(
                                       right: Radius.circular(10.r)),
                                 ),
@@ -201,9 +252,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: !isSelected[2]
-                                        ? const Color(0xFF082D50)
+                                        ? const Color(0xFF616161)
                                         : Colors.white,
-                                    fontSize: 13.sp,
+                                    fontSize: !isSelected[2] ? 12.sp : 13.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -222,13 +273,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             children: [
                               Icon(
                                 Icons.filter_alt_rounded,
-                                color: const Color(0xFF082D50),
+                                color: const Color(0xFF0764BB),
                                 size: 20.r,
+                              ),
+                              SizedBox(
+                                width: 0.01.sw,
                               ),
                               Text(
                                 "Filter",
                                 style: TextStyle(
-                                  color: const Color(0xFF082D50),
+                                  color: const Color(0xFF616161),
                                   fontSize: 17.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -285,8 +339,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      Divider(
-                        color: Colors.grey.shade500,
+                      const Divider(
+                        color: Color(0xFF616161),
                         thickness: 1,
                       ),
                       SizedBox(
@@ -295,21 +349,39 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                admin == true
-                    ? Expanded(
-                        child: TabBarView(
-                            controller: tabController,
-                            children: const [
-                              PendingRequests(),
-                              ProcessingRequests(),
-                              CompletedRequests(),
-                            ]),
-                      )
-                    : FutureBuilder(
-                        future: getRequests(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<bool> snapshot) {
-                          if (snapshot.hasData) {
+              ),
+              admin == true
+                  ? Expanded(
+                      child: TabBarView(
+                          controller: tabController,
+                          children: const [
+                            PendingRequests(),
+                            ProcessingRequests(),
+                            CompletedRequests(),
+                          ]),
+                    )
+                  : FutureBuilder(
+                      future: getRequests(),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        if (snapshot.hasData) {
+                          if (context
+                              .read<RequestController>()
+                              .getRequestList
+                              .isEmpty) {
+                            return Expanded(
+                              child: Center(
+                                child: Text(
+                                  "No Requests Found",
+                                  style: TextStyle(
+                                    color: const Color(0xFF616161),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
                             return Expanded(
                               child: ListView.builder(
                                   itemCount: context
@@ -337,29 +409,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     );
                                   }),
                             );
-                          } else {
-                            return Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  color: Colors.transparent,
-                                  width: 1.sw,
-                                  height: .8.sh,
-                                ),
-                                Lottie.asset(AppAssets.loader,
-                                    fit: BoxFit.fill,
-                                    frameRate: FrameRate(60),
-                                    width: .8.sw,
-                                    controller: _controllerLoading,
-                                    onLoaded: (composition) {
-                                  _controllerLoading.forward();
-                                }),
-                              ],
-                            );
                           }
-                        })
-              ],
-            ),
+                        } else {
+                          return Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                color: Colors.transparent,
+                                width: 1.sw,
+                                height: .8.sh,
+                              ),
+                              Lottie.asset(AppAssets.loader,
+                                  fit: BoxFit.fill,
+                                  frameRate: FrameRate(60),
+                                  width: .8.sw,
+                                  controller: _controllerLoading,
+                                  onLoaded: (composition) {
+                                _controllerLoading.forward();
+                              }),
+                            ],
+                          );
+                        }
+                      })
+            ],
           ),
         ),
       ),
@@ -368,7 +440,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   AppBar homeAppBar() {
     return AppBar(
-      backgroundColor: const Color(0xFFEEEFF1),
+      backgroundColor: const Color(0xFFFAFAFA),
       elevation: 0,
       centerTitle: true,
       leading: Padding(
@@ -376,7 +448,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: IconButton(
           icon: Icon(
             Icons.menu,
-            color: const Color(0xFF082D50),
+            color: const Color(0xFF616161),
             size: 30.r,
           ),
           onPressed: () {
@@ -385,10 +457,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
       title: Text(
-        "Help Desk",
+        "GPS Help Desk",
         style: TextStyle(
-            color: const Color(0xFF082D50),
-            fontSize: 20.sp,
+            color: const Color(0xFF616161),
+            fontSize: 17.sp,
             fontWeight: FontWeight.w400),
       ),
       actions: [
@@ -400,7 +472,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             padding: EdgeInsets.fromLTRB(0, 0.02.sw, 0.05.sw, 0),
             child: Icon(
               Icons.notifications_sharp,
-              color: const Color(0xFF082D50),
+              color: const Color(0xFF0764BB),
               size: 28.r,
             ),
           ),
@@ -416,7 +488,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             height: 1.sh,
             width: .85.sw,
             decoration: BoxDecoration(
-              color: const Color(0xFFEEEFF1),
+              color: const Color(0xFFFAFAFA),
               borderRadius: BorderRadius.horizontal(
                 right: Radius.circular(20.r),
               ),
@@ -433,7 +505,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                             scaffoldKey.currentState!.closeDrawer(),
                         icon: Icon(
                           Icons.close_rounded,
-                          color: const Color(0xFF082D50),
+                          color: const Color(0xFF0764BB),
                           size: 25.r,
                         ))
                   ],
@@ -444,23 +516,31 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: CachedNetworkImage(
                   imageUrl: currentUser.image,
                   imageBuilder: (context, imageProvider) => Container(
-                    width: 0.4.sw,
-                    height: 0.4.sw,
+                    padding: EdgeInsets.all(3.r),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover),
+                      border:
+                          Border.all(color: const Color(0xFF0764BB), width: 2),
+                    ),
+                    child: Container(
+                      width: 0.3.sw,
+                      height: 0.3.sw,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
                     ),
                   ),
                   progressIndicatorBuilder: (context, url, progress) =>
                       Container(
-                    width: 0.4.sw,
-                    height: 0.4.sw,
+                    width: 0.3.sw + 3.r,
+                    height: 0.3.sw + 3.r,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.grey.shade300,
                       border: Border.all(
-                        color: const Color(0xFF082D50),
+                        color: const Color(0xFF0764BB),
                       ),
                     ),
                     child: CircularProgressIndicator(
@@ -480,8 +560,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: Text(
                   currentUser.username,
                   style: TextStyle(
-                    color: const Color(0xFF082D50),
-                    fontSize: 20.sp,
+                    color: const Color(0xFF616161),
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -490,7 +570,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
                   child: Text(currentUser.email,
                       style: TextStyle(
-                          color: const Color(0xFF082D50),
+                          color: const Color(0xFF949494),
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.italic))),
@@ -501,7 +581,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     child: RichText(
                       text: TextSpan(
                         style: TextStyle(
-                            color: const Color(0xFF082D50),
+                            color: const Color(0xFF616161),
                             fontSize: 14.5.sp,
                             wordSpacing: 1.5),
                         children: <TextSpan>[
@@ -524,7 +604,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       child: RichText(
                         text: TextSpan(
                           style: TextStyle(
-                              color: const Color(0xFF082D50),
+                              color: const Color(0xFF616161),
                               fontSize: 14.5.sp,
                               wordSpacing: 1.5),
                           children: <TextSpan>[
@@ -542,7 +622,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: SizedBox(
                   width: 0.65.sw,
                   child: const Divider(
-                    color: Color(0xFF082D50),
+                    color: Color(0xFF0764BB),
                     thickness: 1.25,
                   ),
                 ),
@@ -569,7 +649,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         Text("Edit Profile",
                             style: TextStyle(
                               color: const Color(0xFF082D50),
-                              fontSize: 18.sp,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w400,
                             ))
                       ],
@@ -592,7 +672,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           padding: EdgeInsets.fromLTRB(0.05.sw, 0, 0, 0),
                           child: Icon(
                             Icons.lock,
-                            color: const Color(0xFF082D50),
+                            color: const Color(0xFF0764BB),
                             size: 25.r,
                           ),
                         ),
@@ -601,8 +681,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                         Text("Change Password",
                             style: TextStyle(
-                              color: const Color(0xFF082D50),
-                              fontSize: 18.sp,
+                              color: const Color(0xFF616161),
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w400,
                             ))
                       ],
@@ -621,7 +701,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           padding: EdgeInsets.fromLTRB(0.05.sw, 0, 0, 0),
                           child: Icon(
                             Icons.power_settings_new_rounded,
-                            color: const Color(0xFF082D50),
+                            color: const Color(0xFF0764BB),
                             size: 25.r,
                           ),
                         ),
@@ -630,8 +710,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                         Text("Logout",
                             style: TextStyle(
-                              color: const Color(0xFF082D50),
-                              fontSize: 18.sp,
+                              color: const Color(0xFF616161),
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w400,
                             ))
                       ],

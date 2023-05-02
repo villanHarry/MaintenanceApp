@@ -19,15 +19,18 @@ class _LoginScreenState extends State<LoginScreen>
   );
   bool onpressed = false;
   bool loading = false;
+  bool animated = false;
 
   @override
   void initState() {
+    Timer(const Duration(milliseconds: 270), () {});
     _controllerLoading.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _controllerLoading.reset();
         _controllerLoading.forward();
       }
     });
+
     // TODO: implement initState
     super.initState();
   }
@@ -38,18 +41,7 @@ class _LoginScreenState extends State<LoginScreen>
       alignment: Alignment.center,
       children: [
         Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0,
-              centerTitle: true,
-              title: Text(
-                "Login",
-                style: TextStyle(
-                    color: const Color(0xFF082D50),
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w400),
-              ),
-            ),
+            resizeToAvoidBottomInset: false,
             body: WillPopScope(
               onWillPop: () async {
                 if (onpressed) {
@@ -65,24 +57,17 @@ class _LoginScreenState extends State<LoginScreen>
                 return false;
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
                 height: 1.sh,
                 width: 1.sw,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0.0, 0.7],
-                    colors: [
-                      Colors.white,
-                      Color(0xFFC2C2C2),
-                    ],
-                  ),
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(AppAssets.bg),
+                    image: const AssetImage(AppAssets.bg2),
                     fit: BoxFit.contain,
-                    opacity: 0.2,
-                    alignment: Alignment.bottomCenter,
+                    opacity: 0.5,
+                    alignment: Alignment.topCenter,
+                    colorFilter: ColorFilter.mode(
+                        const Color(0xFF012B85).withOpacity(0.8),
+                        BlendMode.color),
                   ),
                 ),
                 child: Column(
@@ -90,73 +75,105 @@ class _LoginScreenState extends State<LoginScreen>
                     const Spacer(
                       flex: 2,
                     ),
-                    Form(
-                      key: _formKey,
+                    Container(
+                      height: .7.sh,
+                      width: 1.sw,
+                      padding: EdgeInsets.symmetric(horizontal: 22.h),
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFFAFAFA),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(.1),
+                                blurRadius: 10,
+                                offset: const Offset(0, 8))
+                          ]),
                       child: Column(
                         children: [
-                          InputField(
-                              text: "Email Address",
-                              controller: email,
-                              hint: "user@gmail.com",
-                              fontSize: 18.sp),
+                          SizedBox(height: 25.h),
+                          Text(
+                            "Login",
+                            style: TextStyle(
+                                color: const Color(0xFF616161),
+                                fontSize: 20.sp,
+                                letterSpacing: 1,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(height: 25.h),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                InputField(
+                                  text: "Email Address",
+                                  controller: email,
+                                  hint: "user@gmail.com",
+                                  fontSize: 15.sp,
+                                  borderRadius: .05.sw,
+                                ),
+                                SizedBox(height: 10.h),
+                                InputField(
+                                  text: "Password",
+                                  controller: password,
+                                  hint: '●' * 8,
+                                  obscure: true,
+                                  fontSize: 15.sp,
+                                  borderRadius: .05.sw,
+                                ),
+                              ],
+                            ),
+                          ),
                           SizedBox(height: 10.h),
-                          InputField(
-                              text: "Password",
-                              controller: password,
-                              hint: '●' * 8,
-                              obscure: true,
-                              fontSize: 18.sp),
+                          InkWell(
+                            onTap: forgotPasswordFunction,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text("Forgot Password?",
+                                    style: TextStyle(
+                                        color: const Color(0xFF616161),
+                                        fontSize: 14.sp,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            const Color(0xFF616161))),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 25.h),
+                          Button(
+                            text: "Login",
+                            borderRadius: .05.sw,
+                            color: const Color(0xFF0764BB),
+                            fontColor: Colors.white,
+                            height: .075.sh,
+                            fontSize: 16.sp,
+                            onPressed: loginFunction,
+                          ),
+                          const Spacer(),
+                          InkWell(
+                            onTap: signUpFunction,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Don't have an account? ",
+                                    style: TextStyle(
+                                      color: const Color(0xFF616161),
+                                      fontSize: 14.sp,
+                                    )),
+                                Text("SignUp",
+                                    style: TextStyle(
+                                        color: const Color(0xFF0C58A0),
+                                        fontSize: 14.sp,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            const Color(0xFF0C58A0))),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 25.h),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10.h),
-                    InkWell(
-                      onTap: forgotPasswordFunction,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text("Forgot Password?",
-                              style: TextStyle(
-                                  color: const Color(0xFF082D50),
-                                  fontSize: 17.sp,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: const Color(0xFF082D50))),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 25.h),
-                    Button(
-                      text: "Login",
-                      borderRadius: .01.sw,
-                      color: const Color(0xFF082D50),
-                      fontColor: Colors.white,
-                      height: .08.sh,
-                      fontSize: 17.sp,
-                      onPressed: loginFunction,
-                    ),
-                    const Spacer(
-                      flex: 5,
-                    ),
-                    InkWell(
-                      onTap: signUpFunction,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Don't have an account? ",
-                              style: TextStyle(
-                                color: const Color(0xFF082D50),
-                                fontSize: 17.sp,
-                              )),
-                          Text("SignUp",
-                              style: TextStyle(
-                                  color: const Color(0xFF082D50),
-                                  fontSize: 17.sp,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: const Color(0xFF082D50))),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 25.h),
                   ],
                 ),
               ),

@@ -11,13 +11,14 @@ class InputField extends StatefulWidget {
         width: 0,
         height: 0,
       ),
-      this.selectedColor = const Color(0xFF1C1B1F),
+      this.selectedColor = const Color(0xFF0C58A0),
       this.hint = "",
       this.onTap = defaultFunction,
       this.enable = true,
       this.fontSize = 18,
       this.width = 0,
       this.maxLength = 0,
+      this.borderRadius = 0,
       this.shadow = const BoxShadow(color: Colors.transparent)})
       : super(key: key);
 
@@ -36,6 +37,7 @@ class InputField extends StatefulWidget {
   final TextInputType inputType;
   final double width;
   final int maxLength;
+  final double borderRadius;
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -75,7 +77,9 @@ class _InputFieldState extends State<InputField> {
                           }),
                       child: Icon(
                         ontap ? Icons.panorama_fish_eye : Icons.circle,
-                        color: const Color(0xFF1C1B1F),
+                        color: ontap
+                            ? const Color(0xFFABAAAC)
+                            : const Color(0xFF0C58A0),
                       )),
                 )
               : widget.suffix,
@@ -86,27 +90,36 @@ class _InputFieldState extends State<InputField> {
           contentPadding: const EdgeInsets.all(20.0),
           counterText: "",
           hintText: widget.hint,
-          hintStyle: const TextStyle(fontSize: 18),
+          hintStyle: TextStyle(fontSize: 15.sp),
           floatingLabelStyle:
-              TextStyle(fontSize: 20, color: widget.selectedColor),
-          labelStyle: const TextStyle(color: Color(0xFF1C1B1F)),
+              TextStyle(fontSize: 15.sp, color: widget.selectedColor),
+          labelStyle:
+              TextStyle(fontSize: 15.sp, color: const Color(0xFFABAAAC)),
           focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(width: 2, color: widget.selectedColor)),
           disabledBorder: OutlineInputBorder(
               borderSide:
-                  const BorderSide(width: 1.5, color: Color(0xFF79747E)),
-              borderRadius: BorderRadius.circular(width * .01)),
+                  const BorderSide(width: 1.5, color: Color(0xFFABAAAC)),
+              borderRadius: BorderRadius.circular(widget.borderRadius == 0
+                  ? width * .01
+                  : widget.borderRadius)),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(width: 2, color: widget.selectedColor),
-              borderRadius: BorderRadius.circular(width * .01)),
+              borderRadius: BorderRadius.circular(widget.borderRadius == 0
+                  ? width * .01
+                  : widget.borderRadius)),
           enabledBorder: OutlineInputBorder(
               borderSide:
-                  const BorderSide(width: 1.5, color: Color(0xFF79747E)),
-              borderRadius: BorderRadius.circular(width * .01)),
+                  const BorderSide(width: 1.5, color: Color(0xFFABAAAC)),
+              borderRadius: BorderRadius.circular(widget.borderRadius == 0
+                  ? width * .01
+                  : widget.borderRadius)),
           errorBorder: OutlineInputBorder(
               borderSide:
-                  const BorderSide(width: 1.5, color: Color(0xFF79747E)),
-              borderRadius: BorderRadius.circular(width * .01)),
+                  const BorderSide(width: 1.5, color: Color(0xFFABAAAC)),
+              borderRadius: BorderRadius.circular(widget.borderRadius == 0
+                  ? width * .01
+                  : widget.borderRadius)),
         ),
         validator: (value) {
           if (value!.isEmpty) {

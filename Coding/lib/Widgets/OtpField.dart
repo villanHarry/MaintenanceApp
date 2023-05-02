@@ -41,19 +41,19 @@ class _OtpFieldState extends State<OtpField> {
           filled: true,
           contentPadding: const EdgeInsets.all(20.0),
           floatingLabelStyle:
-              const TextStyle(fontSize: 20, color: Color(0xFF1C1B1F)),
-          labelStyle: const TextStyle(color: Color(0xFF1C1B1F)),
+              const TextStyle(fontSize: 20, color: Color(0xFF0C58A0)),
+          hintStyle: const TextStyle(color: Color(0xFFABAAAC)),
           disabledBorder: OutlineInputBorder(
               borderSide:
-                  const BorderSide(width: 1.5, color: Color(0xFF79747E)),
-              borderRadius: BorderRadius.circular(width * .01)),
+                  const BorderSide(width: 1.5, color: Color(0xFFABAAAC)),
+              borderRadius: BorderRadius.circular(width * .03)),
           focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(width: 2, color: Color(0xFF1C1B1F)),
-              borderRadius: BorderRadius.circular(width * .01)),
+              borderSide: const BorderSide(width: 2, color: Color(0xFF0C58A0)),
+              borderRadius: BorderRadius.circular(width * .03)),
           enabledBorder: OutlineInputBorder(
               borderSide:
-                  const BorderSide(width: 1.5, color: Color(0xFF79747E)),
-              borderRadius: BorderRadius.circular(width * .01)),
+                  const BorderSide(width: 1.5, color: Color(0xFFABAAAC)),
+              borderRadius: BorderRadius.circular(width * .03)),
         ),
         validator: (value) {
           if (value!.isEmpty) {

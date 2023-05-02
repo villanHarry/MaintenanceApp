@@ -33,7 +33,7 @@ class _EmailConfirmationState extends State<EmailConfirmation> {
             "Email Confirmation",
             style: TextStyle(
                 color: const Color(0xFF082D50),
-                fontSize: 20.sp,
+                fontSize: 17.sp,
                 fontWeight: FontWeight.w400),
           ),
         ),

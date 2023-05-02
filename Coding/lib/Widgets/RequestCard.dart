@@ -66,7 +66,7 @@ class _RequestCardState extends State<RequestCard>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
+      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 22.5),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -74,8 +74,20 @@ class _RequestCardState extends State<RequestCard>
             padding: EdgeInsets.all(20.r),
             width: 1.sw,
             decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(10.r)),
+                color: const Color(0xFFFAFAFA),
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(
+                  color: const Color(0xFF616161).withOpacity(0.15),
+                  width: 1,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    blurRadius: 7,
+                    spreadRadius: 2,
+                    offset: const Offset(0, 0),
+                  )
+                ]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -105,24 +117,33 @@ class _RequestCardState extends State<RequestCard>
                                       imageUrl: widget.image,
                                       imageBuilder: (context, imageProvider) =>
                                           Container(
-                                        height: 35.r,
-                                        width: 35.r,
+                                        padding: EdgeInsets.all(3.r),
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover),
+                                          border: Border.all(
+                                              color: const Color(0xFF0764BB),
+                                              width: 2),
+                                        ),
+                                        child: Container(
+                                          height: 30.r,
+                                          width: 30.r,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover),
+                                          ),
                                         ),
                                       ),
                                       progressIndicatorBuilder:
                                           (context, url, progress) => Container(
-                                        height: 35.r,
-                                        width: 35.r,
+                                        height: 30.r,
+                                        width: 30.r,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Colors.grey.shade300,
                                           border: Border.all(
-                                            color: const Color(0xFF082D50),
+                                            color: const Color(0xFF616161),
                                           ),
                                         ),
                                         child: CircularProgressIndicator(
@@ -134,7 +155,7 @@ class _RequestCardState extends State<RequestCard>
                                       errorWidget: (context, url, error) =>
                                           const Icon(
                                         Icons.error,
-                                        color: Color(0xFF082D50),
+                                        color: Color(0xFF616161),
                                       ),
                                     ),
                                   )
@@ -145,8 +166,8 @@ class _RequestCardState extends State<RequestCard>
                                         ? "${widget.username.split(' ')[0]} : Request"
                                         : "${widget.username.split(' ')[0]}: ${DateFormat("dd/MM/yyyy").format(widget.date).toString()}",
                                     style: TextStyle(
-                                      color: const Color(0xFF082D50),
-                                      fontSize: 17.sp,
+                                      color: const Color(0xFF616161),
+                                      fontSize: 15.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   )
@@ -155,8 +176,8 @@ class _RequestCardState extends State<RequestCard>
                                         ? "${widget.category.split(' ')[0]} Request"
                                         : "Request: ${DateFormat("dd/MM/yyyy").format(widget.date).toString()}",
                                     style: TextStyle(
-                                      color: const Color(0xFF082D50),
-                                      fontSize: 17.sp,
+                                      color: const Color(0xFF616161),
+                                      fontSize: 15.sp,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -166,7 +187,7 @@ class _RequestCardState extends State<RequestCard>
                           _isExpanded
                               ? Icons.keyboard_arrow_up_rounded
                               : Icons.keyboard_arrow_down_rounded,
-                          color: const Color(0xFF082D50),
+                          color: const Color(0xFF616161),
                           size: 25.r,
                         )
                       ],
@@ -192,7 +213,7 @@ class _RequestCardState extends State<RequestCard>
                             child: RichText(
                               text: TextSpan(
                                 style: TextStyle(
-                                  color: const Color(0xFF082D50),
+                                  color: const Color(0xFF616161),
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -214,7 +235,7 @@ class _RequestCardState extends State<RequestCard>
                             child: RichText(
                               text: TextSpan(
                                 style: TextStyle(
-                                  color: const Color(0xFF082D50),
+                                  color: const Color(0xFF616161),
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -240,7 +261,7 @@ class _RequestCardState extends State<RequestCard>
                                   child: RichText(
                                     text: TextSpan(
                                       style: TextStyle(
-                                          color: const Color(0xFF082D50),
+                                          color: const Color(0xFF616161),
                                           fontSize: 14.sp,
                                           wordSpacing: 1.5),
                                       children: <TextSpan>[
@@ -263,7 +284,7 @@ class _RequestCardState extends State<RequestCard>
                                   child: RichText(
                                     text: TextSpan(
                                       style: TextStyle(
-                                          color: const Color(0xFF082D50),
+                                          color: const Color(0xFF616161),
                                           fontSize: 14.sp,
                                           wordSpacing: 1.5),
                                       children: <TextSpan>[
@@ -291,8 +312,8 @@ class _RequestCardState extends State<RequestCard>
                                     .format(widget.date)
                                     .toString(),
                                 style: TextStyle(
-                                  color: const Color(0xFF082D50),
-                                  fontSize: 14.sp,
+                                  color: const Color(0xFF616161),
+                                  fontSize: 13.sp,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -319,14 +340,14 @@ class _RequestCardState extends State<RequestCard>
                                             widget.status,
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
-                                              color: const Color(0xFF082D50),
+                                              color: const Color(0xFF616161),
                                               fontSize: 14.sp,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
                                           underline: Container(),
                                           style: TextStyle(
-                                            color: const Color(0xFF082D50),
+                                            color: const Color(0xFF616161),
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -352,8 +373,8 @@ class _RequestCardState extends State<RequestCard>
                                   : Text(
                                       widget.status,
                                       style: TextStyle(
-                                        color: const Color(0xFF082D50),
-                                        fontSize: 14.sp,
+                                        color: const Color(0xFF616161),
+                                        fontSize: 13.sp,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     )

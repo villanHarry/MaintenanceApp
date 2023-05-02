@@ -42,7 +42,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
       children: [
         Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: const Color(0xFFFAFAFA),
               elevation: 0,
               centerTitle: true,
               leading: Padding(
@@ -50,7 +50,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                 child: IconButton(
                   icon: const Icon(
                     Icons.arrow_back_ios,
-                    color: Color(0xFF082D50),
+                    color: Color(0xFF616161),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -60,8 +60,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
               title: Text(
                 widget.changePass ? "Change Password" : "Reset Password",
                 style: TextStyle(
-                    color: const Color(0xFF082D50),
-                    fontSize: 20.sp,
+                    color: const Color(0xFF616161),
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.w400),
               ),
             ),
@@ -70,19 +70,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
               height: 1.sh,
               width: 1.sw,
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.0, 0.7],
-                  colors: [
-                    Colors.white,
-                    Color(0xFFC2C2C2),
-                  ],
-                ),
+                color: Color(0xFFFAFAFA),
                 image: DecorationImage(
                   image: AssetImage(AppAssets.bg),
                   fit: BoxFit.contain,
-                  opacity: 0.2,
+                  opacity: 0.5,
                   alignment: Alignment.bottomCenter,
                 ),
               ),
@@ -94,29 +86,33 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen>
                     child: Column(
                       children: [
                         InputField(
-                            text: "Password",
-                            controller: pass,
-                            hint: '●' * 8,
-                            obscure: true,
-                            fontSize: 18.sp),
+                          text: "Password",
+                          controller: pass,
+                          hint: '●' * 8,
+                          obscure: true,
+                          fontSize: 15.sp,
+                          borderRadius: .05.sw,
+                        ),
                         SizedBox(height: 10.h),
                         InputField(
-                            text: "Confirm Password",
-                            controller: confPass,
-                            hint: '●' * 8,
-                            obscure: true,
-                            fontSize: 18.sp),
+                          text: "Confirm Password",
+                          controller: confPass,
+                          hint: '●' * 8,
+                          obscure: true,
+                          fontSize: 15.sp,
+                          borderRadius: .05.sw,
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(height: 25.h),
                   Button(
                     text: widget.changePass ? "Change" : "Reset",
-                    borderRadius: .01.sw,
-                    color: const Color(0xFF082D50),
+                    borderRadius: .05.sw,
+                    color: const Color(0xFF0764BB),
+                    height: .075.sh,
+                    fontSize: 16.sp,
                     fontColor: Colors.white,
-                    height: .08.sh,
-                    fontSize: 17.sp,
                     onPressed: buttonFunction,
                   ),
                   const Spacer(

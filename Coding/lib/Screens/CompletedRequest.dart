@@ -49,58 +49,76 @@ class _CompletedRequestsState extends State<CompletedRequests>
             future: getRequests(),
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
               if (snapshot.hasData) {
-                return Expanded(
-                  child: ListView.builder(
-                      itemCount: context
-                          .watch<RequestController>()
-                          .getCompletedRequests
-                          .length,
-                      itemBuilder: (context, index) {
-                        return RequestCard(
-                          admin: admin,
-                          message: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .msg,
-                          date: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .createdAt,
-                          status: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .status,
-                          category: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .category,
-                          id: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .id,
-                          image: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .user
-                              .image,
-                          username: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .user
-                              .username,
-                          floorNumber: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .user
-                              .floorNumber,
-                          contactNumber: context
-                              .read<RequestController>()
-                              .getCompletedRequests[index]
-                              .user
-                              .contactNumber,
-                        );
-                      }),
-                );
+                if (context
+                    .read<RequestController>()
+                    .getCompletedRequests
+                    .isEmpty) {
+                  return Expanded(
+                    child: Center(
+                      child: Text(
+                        "No Requests Found",
+                        style: TextStyle(
+                          color: const Color(0xFF616161),
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: context
+                            .watch<RequestController>()
+                            .getCompletedRequests
+                            .length,
+                        itemBuilder: (context, index) {
+                          return RequestCard(
+                            admin: admin,
+                            message: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .msg,
+                            date: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .createdAt,
+                            status: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .status,
+                            category: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .category,
+                            id: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .id,
+                            image: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .user
+                                .image,
+                            username: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .user
+                                .username,
+                            floorNumber: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .user
+                                .floorNumber,
+                            contactNumber: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .user
+                                .contactNumber,
+                          );
+                        }),
+                  );
+                }
               } else {
                 return Stack(
                   alignment: Alignment.center,
@@ -113,7 +131,7 @@ class _CompletedRequestsState extends State<CompletedRequests>
                     Lottie.asset(AppAssets.loader,
                         fit: BoxFit.fill,
                         frameRate: FrameRate(60),
-                        width: .8.sw,
+                        width: .4.sw,
                         controller: _controllerLoading,
                         onLoaded: (composition) {
                       _controllerLoading.forward();

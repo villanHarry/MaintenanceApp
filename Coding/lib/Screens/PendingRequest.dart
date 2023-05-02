@@ -48,58 +48,76 @@ class _PendingRequestsState extends State<PendingRequests>
             future: getRequests(),
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
               if (snapshot.hasData) {
-                return Expanded(
-                  child: ListView.builder(
-                      itemCount: context
-                          .watch<RequestController>()
-                          .getPendingRequests
-                          .length,
-                      itemBuilder: (context, index) {
-                        return RequestCard(
-                          admin: admin,
-                          message: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .msg,
-                          date: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .createdAt,
-                          status: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .status,
-                          category: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .category,
-                          id: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .id,
-                          image: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .user
-                              .image,
-                          username: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .user
-                              .username,
-                          floorNumber: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .user
-                              .floorNumber,
-                          contactNumber: context
-                              .read<RequestController>()
-                              .getPendingRequests[index]
-                              .user
-                              .contactNumber,
-                        );
-                      }),
-                );
+                if (context
+                    .read<RequestController>()
+                    .getPendingRequests
+                    .isEmpty) {
+                  return Expanded(
+                    child: Center(
+                      child: Text(
+                        "No Requests Found",
+                        style: TextStyle(
+                          color: const Color(0xFF616161),
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: context
+                            .watch<RequestController>()
+                            .getPendingRequests
+                            .length,
+                        itemBuilder: (context, index) {
+                          return RequestCard(
+                            admin: admin,
+                            message: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .msg,
+                            date: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .createdAt,
+                            status: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .status,
+                            category: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .category,
+                            id: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .id,
+                            image: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .user
+                                .image,
+                            username: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .user
+                                .username,
+                            floorNumber: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .user
+                                .floorNumber,
+                            contactNumber: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .user
+                                .contactNumber,
+                          );
+                        }),
+                  );
+                }
               } else {
                 return Stack(
                   alignment: Alignment.center,
@@ -112,7 +130,7 @@ class _PendingRequestsState extends State<PendingRequests>
                     Lottie.asset(AppAssets.loader,
                         fit: BoxFit.fill,
                         frameRate: FrameRate(60),
-                        width: .8.sw,
+                        width: .4.sw,
                         controller: _controllerLoading,
                         onLoaded: (composition) {
                       _controllerLoading.forward();

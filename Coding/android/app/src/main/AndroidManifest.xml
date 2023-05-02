@@ -2,7 +2,7 @@
     package="com.example.maintenance_app">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="Helpdesk"
+        android:label="GPS Helpdesk"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

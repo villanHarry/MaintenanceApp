@@ -38,7 +38,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
       children: [
         Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: const Color(0xFFFAFAFA),
               elevation: 0,
               centerTitle: true,
               leading: Padding(
@@ -46,7 +46,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                 child: IconButton(
                   icon: const Icon(
                     Icons.arrow_back_ios,
-                    color: Color(0xFF082D50),
+                    color: Color(0xFF616161),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -56,8 +56,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
               title: Text(
                 "Forgot Password",
                 style: TextStyle(
-                    color: const Color(0xFF082D50),
-                    fontSize: 20.sp,
+                    color: const Color(0xFF616161),
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.w400),
               ),
             ),
@@ -66,19 +66,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
               height: 1.sh,
               width: 1.sw,
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.0, 0.7],
-                  colors: [
-                    Colors.white,
-                    Color(0xFFC2C2C2),
-                  ],
-                ),
+                color: Color(0xFFFAFAFA),
                 image: DecorationImage(
                   image: AssetImage(AppAssets.bg),
                   fit: BoxFit.contain,
-                  opacity: 0.2,
+                  opacity: 0.5,
                   alignment: Alignment.bottomCenter,
                 ),
               ),
@@ -90,21 +82,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                     child: Column(
                       children: [
                         InputField(
-                            text: "Email Address",
-                            controller: email,
-                            hint: "user@gmail.com",
-                            fontSize: 18.sp),
+                          text: "Email Address",
+                          controller: email,
+                          hint: "user@gmail.com",
+                          fontSize: 15.sp,
+                          borderRadius: .05.sw,
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(height: 25.h),
                   Button(
                     text: "Send Code",
-                    borderRadius: .01.sw,
-                    color: const Color(0xFF082D50),
+                    borderRadius: .05.sw,
+                    color: const Color(0xFF0764BB),
                     fontColor: Colors.white,
-                    height: .08.sh,
-                    fontSize: 17.sp,
+                    height: .075.sh,
+                    fontSize: 16.sp,
                     onPressed: sendCodeFunction,
                   ),
                   const Spacer(
@@ -156,6 +150,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
             context: context, content: "No Internet Connection");
       }
     }
+    AppNavigation.push(context, const VerificationScreen());
   }
 
   loaderStart() {
