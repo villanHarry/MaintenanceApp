@@ -39,7 +39,8 @@ class _OtpFieldState extends State<OtpField> {
           hintText: "0",
           fillColor: const Color.fromARGB(255, 250, 250, 250),
           filled: true,
-          contentPadding: const EdgeInsets.all(20.0),
+          contentPadding: const EdgeInsets.all(17.0),
+          isDense: true,
           floatingLabelStyle:
               const TextStyle(fontSize: 20, color: Color(0xFF0C58A0)),
           hintStyle: const TextStyle(color: Color(0xFFABAAAC)),

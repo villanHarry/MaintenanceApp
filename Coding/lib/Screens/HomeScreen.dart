@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     color: !isSelected[1]
                                         ? const Color(0xFF616161)
                                         : Colors.white,
-                                    fontSize: !isSelected[1] ? 12.sp : 13.5.sp,
+                                    fontSize: !isSelected[1] ? 12.sp : 13.sp,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
@@ -597,25 +597,83 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   )),
               Visibility(
                 visible: !widget.admin,
-                child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
-                    child: SizedBox(
-                      width: 0.52.sw,
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                              color: const Color(0xFF616161),
-                              fontSize: 14.5.sp,
-                              wordSpacing: 1.5),
-                          children: <TextSpan>[
-                            const TextSpan(
-                                text: 'Floor No: ',
-                                style: TextStyle(fontWeight: FontWeight.w600)),
-                            TextSpan(text: currentUser.floorNumber.toString()),
-                          ],
-                        ),
-                      ),
-                    )),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0, 0),
+                        child: SizedBox(
+                          width: 0.52.sw,
+                          child: RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                  color: const Color(0xFF616161),
+                                  fontSize: 14.5.sp,
+                                  wordSpacing: 1.5,
+                                  overflow: TextOverflow.ellipsis),
+                              children: <TextSpan>[
+                                const TextSpan(
+                                    text: 'Address: ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
+                                TextSpan(
+                                    text:
+                                        '0${currentUser.contactNumber.toString().substring(0, 3)}-${currentUser.contactNumber.toString().substring(4)}')
+                              ],
+                            ),
+                          ),
+                        )),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0.01.sh, 0.015.sh, 0),
+                        child: SizedBox(
+                          width: 0.485.sw,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                      color: const Color(0xFF616161),
+                                      fontSize: 14.5.sp,
+                                      wordSpacing: 1.5),
+                                  children: <TextSpan>[
+                                    const TextSpan(
+                                        text: 'Floor No: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600)),
+                                    TextSpan(
+                                        text:
+                                            currentUser.floorNumber.toString()),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                  width: 0.05.sw,
+                                  child: const Divider(
+                                    color: Color(0xFF616161),
+                                  )),
+                              RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                      color: const Color(0xFF616161),
+                                      fontSize: 14.5.sp,
+                                      wordSpacing: 1.5),
+                                  children: <TextSpan>[
+                                    const TextSpan(
+                                        text: 'Unit No: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600)),
+                                    TextSpan(
+                                        text:
+                                            currentUser.floorNumber.toString()),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 0.025.sh),

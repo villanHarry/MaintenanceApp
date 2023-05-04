@@ -83,13 +83,12 @@ class _SignUpScreenState extends State<SignUpScreen>
               ),
               child: Column(
                 children: [
-                  SizedBox(height: 30.h),
+                  const Spacer(),
                   SizedBox(
-                    height: 0.57.sh,
+                    height: 0.62.sh,
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          SizedBox(height: 25.h),
                           Form(
                             key: _formKey,
                             child: Column(
@@ -108,28 +107,41 @@ class _SignUpScreenState extends State<SignUpScreen>
                                           }
                                         });
                                       },
-                                      child: Container(
-                                        width: 0.25.sw,
-                                        height: 0.25.sw,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white,
-                                          image: image.path.isNotEmpty
-                                              ? DecorationImage(
-                                                  image: FileImage(image),
-                                                  fit: BoxFit.cover)
-                                              : null,
-                                          border: Border.all(
-                                            color: const Color(0xFFABAAAC),
-                                            width: 1.5,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            "Optional",
+                                            style: TextStyle(
+                                                fontSize: 12.sp,
+                                                color: const Color(0xFF616161)),
                                           ),
-                                        ),
-                                        child: image.path.isEmpty
-                                            ? const Icon(
-                                                Icons.add,
-                                                color: Color(0xFFABAAAC),
-                                              )
-                                            : const SizedBox.shrink(),
+                                          SizedBox(height: 2.h),
+                                          Container(
+                                            width: 0.25.sw,
+                                            height: 0.25.sw,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                              image: image.path.isNotEmpty
+                                                  ? DecorationImage(
+                                                      image: FileImage(image),
+                                                      fit: BoxFit.cover)
+                                                  : null,
+                                              border: Border.all(
+                                                color: const Color(0xFFABAAAC),
+                                                width: 1.5,
+                                              ),
+                                            ),
+                                            child: image.path.isEmpty
+                                                ? const Icon(
+                                                    Icons.add,
+                                                    color: Color(0xFFABAAAC),
+                                                  )
+                                                : const SizedBox.shrink(),
+                                          ),
+                                          SizedBox(height: 4.h),
+                                        ],
                                       ),
                                     ),
                                     SizedBox(width: 10.w),
@@ -156,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                                                   color:
                                                       const Color(0xFFABAAAC))),
                                           child: SizedBox(
-                                            width: .53.sw,
+                                            width: .52.sw,
                                             child: DropdownButton<String>(
                                                 value: dropDown,
                                                 alignment: Alignment.centerLeft,
@@ -266,19 +278,19 @@ class _SignUpScreenState extends State<SignUpScreen>
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     InputField(
-                                      width: 0.53.sw,
-                                      text: "Contact #",
+                                      width: 0.435.sw,
+                                      text: "Floor #",
                                       inputType: TextInputType.number,
                                       maxLength: 11,
-                                      controller: contact,
+                                      controller: floor,
                                       hint: "00",
                                       fontSize: 15.sp,
                                       borderRadius: .05.sw,
                                     ),
                                     const Spacer(),
                                     InputField(
-                                      width: 0.34.sw,
-                                      text: "Floor",
+                                      width: 0.435.sw,
+                                      text: "Unit #",
                                       maxLength: 2,
                                       inputType: TextInputType.number,
                                       controller: floor,
@@ -287,6 +299,16 @@ class _SignUpScreenState extends State<SignUpScreen>
                                       borderRadius: .05.sw,
                                     ),
                                   ],
+                                ),
+                                SizedBox(height: 10.h),
+                                InputField(
+                                  text: "Contact #",
+                                  inputType: TextInputType.number,
+                                  maxLength: 11,
+                                  controller: contact,
+                                  hint: "00",
+                                  fontSize: 15.sp,
+                                  borderRadius: .05.sw,
                                 ),
                                 SizedBox(height: 10.h),
                                 InputField(
@@ -313,7 +335,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                       ),
                     ),
                   ),
-                  SizedBox(height: 25.h),
+                  SizedBox(height: 10.h),
                   Button(
                     text: "SignUp",
                     fontColor: Colors.white,
@@ -345,7 +367,9 @@ class _SignUpScreenState extends State<SignUpScreen>
                       ],
                     ),
                   ),
-                  SizedBox(height: 15.h),
+                  const Spacer(
+                    flex: 2,
+                  ),
                 ],
               ),
             )),

@@ -126,7 +126,7 @@ class _ProcessingRequestsState extends State<ProcessingRequests>
                     Container(
                       color: Colors.transparent,
                       width: 1.sw,
-                      height: .7.sh,
+                      height: .65.sh,
                     ),
                     Lottie.asset(AppAssets.loader,
                         fit: BoxFit.fill,

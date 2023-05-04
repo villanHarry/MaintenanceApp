@@ -150,7 +150,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
             context: context, content: "No Internet Connection");
       }
     }
-    AppNavigation.push(context, const VerificationScreen());
   }
 
   loaderStart() {

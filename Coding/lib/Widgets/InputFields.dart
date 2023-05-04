@@ -87,8 +87,9 @@ class _InputFieldState extends State<InputField> {
           labelText: widget.text,
           fillColor: const Color.fromARGB(255, 250, 250, 250),
           filled: true,
-          contentPadding: const EdgeInsets.all(20.0),
+          contentPadding: const EdgeInsets.all(17.0),
           counterText: "",
+          isDense: true,
           hintText: widget.hint,
           hintStyle: TextStyle(fontSize: 15.sp),
           floatingLabelStyle:

@@ -4,21 +4,28 @@ import '../Constants/AppImports.dart';
 import 'package:intl/intl.dart';
 
 class RequestCard extends StatefulWidget {
-  RequestCard(
-      {Key? key,
-      this.id = "",
-      this.status = "Pending",
-      this.admin = false,
-      this.isExpanded = false,
-      this.category = 'Construction works',
-      this.image = "",
-      this.username = "",
-      this.contactNumber = 0,
-      this.floorNumber = 0,
-      this.message =
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      DateTime? date})
-      : date = date ?? DateTime.now();
+  RequestCard({
+    Key? key,
+    this.id = "",
+    this.status = "Pending",
+    this.admin = false,
+    this.isExpanded = false,
+    this.category = 'Construction works',
+    this.image = "",
+    this.username = "",
+    this.contactNumber = 0,
+    this.floorNumber = 0,
+    this.unitNumber = 0,
+    this.message =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    this.address = "Pearl Towers - PT1",
+    this.visitTime = "9:00 AM to 12:00 PM",
+    DateTime? date,
+    DateTime? visitDate,
+  })  : date = date ?? DateTime.now(),
+        visitDate = visitDate ?? DateTime.now(),
+        super(key: key);
+
   String status;
   String id;
   final bool admin;
@@ -26,9 +33,13 @@ class RequestCard extends StatefulWidget {
   final String message;
   final String category;
   final DateTime date;
+  final DateTime visitDate;
+  final String visitTime;
   final String image;
   final String username;
+  final String address;
   final int contactNumber;
+  final int unitNumber;
   final int floorNumber;
 
   @override
@@ -164,7 +175,7 @@ class _RequestCardState extends State<RequestCard>
                                 ? Text(
                                     _isExpanded
                                         ? "${widget.username.split(' ')[0]} : Request"
-                                        : "${widget.username.split(' ')[0]}: ${DateFormat("dd/MM/yyyy").format(widget.date).toString()}",
+                                        : "${widget.username.split(' ')[0]}: ${DateFormat("dd/MM/yyyy").format(widget.visitDate).toString()}",
                                     style: TextStyle(
                                       color: const Color(0xFF616161),
                                       fontSize: 15.sp,
@@ -174,7 +185,7 @@ class _RequestCardState extends State<RequestCard>
                                 : Text(
                                     _isExpanded
                                         ? "${widget.category.split(' ')[0]} Request"
-                                        : "Request: ${DateFormat("dd/MM/yyyy").format(widget.date).toString()}",
+                                        : "Request: ${DateFormat("dd/MM/yyyy").format(widget.visitDate).toString()}",
                                     style: TextStyle(
                                       color: const Color(0xFF616161),
                                       fontSize: 15.sp,
@@ -249,12 +260,74 @@ class _RequestCardState extends State<RequestCard>
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: .015.sw,
+                          ),
+                          SizedBox(
+                            width: 1.sw,
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  color: const Color(0xFF616161),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                children: <TextSpan>[
+                                  const TextSpan(
+                                      text: "Preferred Visit: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                  TextSpan(
+                                      text: DateFormat("dd/MM/yyyy")
+                                          .format(widget.visitDate)
+                                          .toString()),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: .015.sw,
+                          ),
+                          SizedBox(
+                            width: 1.sw,
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  color: const Color(0xFF616161),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                children: <TextSpan>[
+                                  const TextSpan(
+                                      text: "Preferred Time Slot: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                  TextSpan(text: widget.visitTime)
+                                ],
+                              ),
+                            ),
+                          ),
                           Visibility(
                             visible: widget.admin,
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: 0.02.sh,
+                                  height: 0.015.sh,
+                                ),
+                                SizedBox(
+                                  width: 1.sw,
+                                  child: Text(
+                                    "User Details: ",
+                                    style: TextStyle(
+                                      color: const Color(0xFF616161),
+                                      fontSize: 14.sp,
+                                      letterSpacing: 0.2.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 0.015.sh,
                                 ),
                                 SizedBox(
                                   width: 1.sw,
@@ -289,13 +362,68 @@ class _RequestCardState extends State<RequestCard>
                                           wordSpacing: 1.5),
                                       children: <TextSpan>[
                                         const TextSpan(
-                                            text: 'Floor No: ',
+                                            text: 'Address: ',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600)),
-                                        TextSpan(
-                                            text: widget.floorNumber.toString())
+                                        TextSpan(text: widget.address)
                                       ],
                                     ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 0.01.sh,
+                                ),
+                                SizedBox(
+                                  width: 1.sw,
+                                  child: Row(
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          style: TextStyle(
+                                              color: const Color(0xFF616161),
+                                              fontSize: 14.sp,
+                                              wordSpacing: 1.5),
+                                          children: <TextSpan>[
+                                            const TextSpan(
+                                                text: 'Floor No: ',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                            TextSpan(
+                                                text: widget.floorNumber
+                                                    .toString())
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 0.02.sw),
+                                        child: SizedBox(
+                                            width: 0.04.sw,
+                                            child: const Divider(
+                                              thickness: 1,
+                                              color: Color(0xFF616161),
+                                            )),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                          style: TextStyle(
+                                              color: const Color(0xFF616161),
+                                              fontSize: 14.sp,
+                                              wordSpacing: 1.5),
+                                          children: <TextSpan>[
+                                            const TextSpan(
+                                                text: 'Unit No: ',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                            TextSpan(
+                                                text: widget.floorNumber
+                                                    .toString())
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
