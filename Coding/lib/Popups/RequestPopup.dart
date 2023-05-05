@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:intl/intl.dart';
-
 import '../Constants/AppImports.dart';
 
 class RequestPopup extends StatefulWidget {
@@ -15,6 +14,8 @@ class _RequestPopupState extends State<RequestPopup> {
   final _reasonController = TextEditingController();
   String category = "Select a Category";
   String timeSlot = "Select a Time Slot";
+  File image = File("");
+  late DateTime date = DateTime.now();
   bool onpressed = false;
 
   @override
@@ -67,157 +68,255 @@ class _RequestPopupState extends State<RequestPopup> {
       content: Container(
         padding: const EdgeInsets.all(18),
         width: .85.sw,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: 1.sw,
-              decoration: BoxDecoration(
-                  color: const Color(0xFFFAFAFA),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: const Color(0xFFABAAAC))),
-              child: const Center(
-                child: Icon(
-                  Icons.add,
-                  color: Color(0xFFABAAAC),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: .03.sh,
-            ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  height: .06.sh,
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFFAFAFA),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xFFABAAAC))),
-                  child: SizedBox(
-                    width: 1.sw,
-                    child: DropdownButton<String>(
-                        value: category,
-                        alignment: Alignment.centerLeft,
-                        iconEnabledColor: const Color(0xFF616161),
-                        iconDisabledColor: const Color(0xFFABAAAC),
-                        iconSize: 20.r,
-                        isExpanded: true,
-                        icon: const Align(
-                          alignment: Alignment.centerRight,
-                          child: Icon(
-                            Icons.keyboard_arrow_down_sharp,
-                            color: Color(0xFFABAAAC),
-                          ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      AppImageHandler.getImage(context, ImageSource.gallery)
+                          .then((value) {
+                        if (value.path.isNotEmpty) {
+                          setState(() {
+                            image = value;
+                          });
+                        }
+                      });
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFFAFAFA),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: const Color(0xFFABAAAC)),
+                          image: image.path.isEmpty
+                              ? null
+                              : DecorationImage(
+                                  image: FileImage(image), fit: BoxFit.cover)),
+                      child: const Center(
+                        child: Icon(
+                          Icons.add,
+                          color: Color(0xFFABAAAC),
                         ),
-                        borderRadius: BorderRadius.circular(8.r),
-                        hint: Text(
-                          "Select a Category",
-                          textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: onpressed,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: .03.sh,
+              ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: .06.sh,
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFFAFAFA),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: const Color(0xFFABAAAC))),
+                    child: SizedBox(
+                      width: 1.sw,
+                      child: DropdownButton<String>(
+                          value: category,
+                          alignment: Alignment.centerLeft,
+                          iconEnabledColor: const Color(0xFF616161),
+                          iconDisabledColor: const Color(0xFFABAAAC),
+                          iconSize: 20.r,
+                          isExpanded: true,
+                          icon: const Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.keyboard_arrow_down_sharp,
+                              color: Color(0xFFABAAAC),
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(8.r),
+                          hint: Text(
+                            "Select a Category",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: const Color(0xFFABAAAC),
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          underline: Container(),
                           style: TextStyle(
-                            color: const Color(0xFFABAAAC),
+                            color: category == "Select a Category"
+                                ? const Color(0xFFABAAAC)
+                                : const Color(0xFF616161),
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w400,
                           ),
-                        ),
-                        underline: Container(),
-                        style: TextStyle(
-                          color: category == "Select a Category"
-                              ? const Color(0xFFABAAAC)
-                              : const Color(0xFF616161),
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        items: <String>[
-                          'Select a Category',
-                          'Construction works',
-                          'Doors',
-                          'gates',
-                          'windows',
-                          'and other openings',
-                          'Lighting',
-                          'Plumbing',
-                          'Fire equipment',
-                          'Heating and Cooling',
-                          'Access Control',
-                          'Others'
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          if (newValue == "Select a Category") {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                backgroundColor: const Color(0xFFFAFAFA),
-                                content: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text(
-                                      "Please select a category",
-                                      style:
-                                          TextStyle(color: Color(0xFF616161)),
-                                    ),
-                                  ],
-                                ),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
+                          items: <String>[
+                            'Select a Category',
+                            'Construction works',
+                            'Doors',
+                            'gates',
+                            'windows',
+                            'and other openings',
+                            'Lighting',
+                            'Plumbing',
+                            'Fire equipment',
+                            'Heating and Cooling',
+                            'Access Control',
+                            'Others'
+                          ].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
                             );
-                          }
-                          if (newValue == "Others") {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                backgroundColor: const Color(0xFFFAFAFA),
-                                content: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text(
-                                      "Enter a reason",
-                                      style:
-                                          TextStyle(color: Color(0xFF616161)),
-                                    ),
-                                  ],
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            if (newValue == "Select a Category") {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  backgroundColor: const Color(0xFFFAFAFA),
+                                  content: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        "Please select a category",
+                                        style:
+                                            TextStyle(color: Color(0xFF616161)),
+                                      ),
+                                    ],
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15)),
                                 ),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
-                            );
-                          }
-                          setState(() {
-                            category = newValue!;
-                          });
-                        }),
-                  ),
-                ),
-                Visibility(
-                  visible: onpressed,
-                  child: Container(
-                    height: .06.sh,
-                    width: 1.sw,
-                    decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.grey)),
-                  ),
-                )
-              ],
-            ),
-            Visibility(
-                visible: category == "Others" ? true : false,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: .03.sh,
+                              );
+                            }
+                            if (newValue == "Others") {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  backgroundColor: const Color(0xFFFAFAFA),
+                                  content: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        "Enter a reason",
+                                        style:
+                                            TextStyle(color: Color(0xFF616161)),
+                                      ),
+                                    ],
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15)),
+                                ),
+                              );
+                            }
+                            setState(() {
+                              category = newValue!;
+                            });
+                          }),
                     ),
-                    Container(
+                  ),
+                  Visibility(
+                    visible: onpressed,
+                    child: Container(
+                      height: .06.sh,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey)),
+                    ),
+                  )
+                ],
+              ),
+              Visibility(
+                  visible: category == "Others" ? true : false,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: .03.sh,
+                      ),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            height: .06.sh,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                                color: const Color(0xFFFAFAFA),
+                                borderRadius: BorderRadius.circular(.025.sw),
+                                border:
+                                    Border.all(color: const Color(0xFFABAAAC))),
+                            child: TextFormField(
+                              enabled: !onpressed,
+                              controller: _reasonController,
+                              style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: const Color(0xFFABAAAC)),
+                              decoration: InputDecoration(
+                                hintText: 'Reason',
+                                hintStyle: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: const Color(0xFFABAAAC)),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: onpressed,
+                            child: Container(
+                              height: .06.sh,
+                              width: 1.sw,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.grey)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  )),
+              SizedBox(
+                height: .03.sh,
+              ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      showDatePicker(
+                        context: context,
+                        initialDate: DateTime(DateTime.now().year),
+                        firstDate: DateTime(1980, 1, 1),
+                        lastDate: DateTime(DateTime.now().year,
+                            DateTime.now().month, DateTime.now().day),
+                      ).then((value) {
+                        if (value != null) {
+                          setState(() {
+                            _dateController.text =
+                                DateFormat("dd/MM/yyyy").format(value);
+                            date = value;
+                          });
+                        }
+                      });
+                    },
+                    child: Container(
                       height: .06.sh,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       decoration: BoxDecoration(
@@ -225,182 +324,187 @@ class _RequestPopupState extends State<RequestPopup> {
                           borderRadius: BorderRadius.circular(.025.sw),
                           border: Border.all(color: const Color(0xFFABAAAC))),
                       child: TextFormField(
-                        enabled: !onpressed,
-                        controller: _reasonController,
+                        enabled: false,
+                        controller: _dateController,
                         style: TextStyle(
-                            fontSize: 14.sp, color: const Color(0xFFABAAAC)),
+                          fontSize: 14.sp,
+                        ),
                         decoration: InputDecoration(
-                          hintText: 'Reason',
+                          hintText: 'Preferred Visit',
                           hintStyle: TextStyle(
                               fontSize: 14.sp, color: const Color(0xFFABAAAC)),
                           border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ],
-                )),
-            SizedBox(
-              height: .03.sh,
-            ),
-            InkWell(
-              onTap: () {
-                showDatePicker(
-                  context: context,
-                  initialDate: DateTime(DateTime.now().year),
-                  firstDate: DateTime(1980, 1, 1),
-                  lastDate: DateTime(DateTime.now().year, DateTime.now().month,
-                      DateTime.now().day),
-                ).then((value) {
-                  if (value != null) {
-                    setState(() {
-                      _dateController.text =
-                          DateFormat("dd/MM/yyyy").format(value);
-                    });
-                  }
-                });
-              },
-              child: Container(
-                height: .06.sh,
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                    color: const Color(0xFFFAFAFA),
-                    borderRadius: BorderRadius.circular(.025.sw),
-                    border: Border.all(color: const Color(0xFFABAAAC))),
-                child: TextFormField(
-                  enabled: false,
-                  controller: _dateController,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Preferred Visit',
-                    hintStyle: TextStyle(
-                        fontSize: 14.sp, color: const Color(0xFFABAAAC)),
-                    border: InputBorder.none,
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          width: .06.sw,
-                        ),
-                        const Icon(
-                          Icons.calendar_month_outlined,
-                          color: Color(0xFFABAAAC),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: .03.sh,
-            ),
-            Container(
-              height: .06.sh,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  color: const Color(0xFFFAFAFA),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: const Color(0xFFABAAAC))),
-              child: SizedBox(
-                width: 1.sw,
-                child: DropdownButton<String>(
-                    value: timeSlot,
-                    alignment: Alignment.centerLeft,
-                    iconEnabledColor: const Color(0xFF616161),
-                    iconDisabledColor: const Color(0xFFABAAAC),
-                    iconSize: 20.r,
-                    isExpanded: true,
-                    icon: const Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        Icons.keyboard_arrow_down_sharp,
-                        color: Color(0xFFABAAAC),
-                      ),
-                    ),
-                    borderRadius: BorderRadius.circular(8.r),
-                    hint: Text(
-                      "Select a Time Slot",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: const Color(0xFFABAAAC),
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    underline: Container(),
-                    style: TextStyle(
-                      color: timeSlot == "Select a Time Slot"
-                          ? const Color(0xFFABAAAC)
-                          : const Color(0xFF616161),
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    items: <String>[
-                      'Select a Time Slot',
-                      '9:00 AM to 12:00 PM',
-                      '12:00 PM to 3:00 PM',
-                      '3:00 PM to 6:00 PM',
-                      '6:00 PM to 9:00 PM'
-                    ].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      if (newValue == "Select a Time Slot") {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            backgroundColor: const Color(0xFFFAFAFA),
-                            content: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  "Please select a time slot",
-                                  style: TextStyle(color: Color(0xFF616161)),
-                                ),
-                              ],
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
+                          suffixIcon: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: .06.sw,
+                              ),
+                              const Icon(
+                                Icons.calendar_month_outlined,
+                                color: Color(0xFFABAAAC),
+                              ),
+                            ],
                           ),
-                        );
-                      }
+                        ),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: onpressed,
+                    child: Container(
+                      height: .06.sh,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey)),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: .03.sh,
+              ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: .06.sh,
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFFAFAFA),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: const Color(0xFFABAAAC))),
+                    child: SizedBox(
+                      width: 1.sw,
+                      child: DropdownButton<String>(
+                          value: timeSlot,
+                          alignment: Alignment.centerLeft,
+                          iconEnabledColor: const Color(0xFF616161),
+                          iconDisabledColor: const Color(0xFFABAAAC),
+                          iconSize: 20.r,
+                          isExpanded: true,
+                          icon: const Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.keyboard_arrow_down_sharp,
+                              color: Color(0xFFABAAAC),
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(8.r),
+                          hint: Text(
+                            "Select a Time Slot",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: const Color(0xFFABAAAC),
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          underline: Container(),
+                          style: TextStyle(
+                            color: timeSlot == "Select a Time Slot"
+                                ? const Color(0xFFABAAAC)
+                                : const Color(0xFF616161),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          items: <String>[
+                            'Select a Time Slot',
+                            '9:00 AM to 12:00 PM',
+                            '12:00 PM to 3:00 PM',
+                            '3:00 PM to 6:00 PM',
+                            '6:00 PM to 9:00 PM'
+                          ].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            if (newValue == "Select a Time Slot") {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  backgroundColor: const Color(0xFFFAFAFA),
+                                  content: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Text(
+                                        "Please select a time slot",
+                                        style:
+                                            TextStyle(color: Color(0xFF616161)),
+                                      ),
+                                    ],
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15)),
+                                ),
+                              );
+                            }
 
-                      setState(() {
-                        timeSlot = newValue!;
-                      });
-                    }),
+                            setState(() {
+                              timeSlot = newValue!;
+                            });
+                          }),
+                    ),
+                  ),
+                  Visibility(
+                    visible: onpressed,
+                    child: Container(
+                      height: .06.sh,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey)),
+                    ),
+                  )
+                ],
               ),
-            ),
-            SizedBox(
-              height: .03.sh,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.2,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  color: const Color(0xFFFAFAFA),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: const Color(0xFFABAAAC))),
-              child: TextFormField(
-                enabled: !onpressed,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                ),
-                controller: _messageController,
-                decoration: InputDecoration(
-                  hintText: 'Message',
-                  hintStyle: TextStyle(
-                      fontSize: 14.sp, color: const Color(0xFFABAAAC)),
-                  border: InputBorder.none,
-                ),
+              SizedBox(
+                height: .03.sh,
               ),
-            ),
-          ],
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFFAFAFA),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: const Color(0xFFABAAAC))),
+                    child: TextFormField(
+                      enabled: !onpressed,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                      ),
+                      controller: _messageController,
+                      decoration: InputDecoration(
+                        hintText: 'Message',
+                        hintStyle: TextStyle(
+                            fontSize: 14.sp, color: const Color(0xFFABAAAC)),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: onpressed,
+                    child: Container(
+                      height: .2.sh,
+                      width: 1.sw,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.grey)),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
@@ -435,13 +539,14 @@ class _RequestPopupState extends State<RequestPopup> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          backgroundColor: const Color(0xFF082D50),
+                          backgroundColor: const Color(0xFFFAFAFA),
                           content: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 content,
-                                style: const TextStyle(color: Colors.white),
+                                style:
+                                    const TextStyle(color: Color(0xFF616161)),
                               ),
                             ],
                           ),
@@ -520,21 +625,30 @@ class _RequestPopupState extends State<RequestPopup> {
       onpressed = true;
     });
     final bool internet = await AppNetwork.checkInternet();
-
     if (internet) {
-      final bool result = await RequestAPI.addRequest(
+      String generatedUrl = "";
+      if (image.path.isNotEmpty) {
+        generatedUrl = await AppImageHandler.generate(context, image);
+      }
+      bool result = await RequestAPI.addRequest(
           category == "Others" ? _reasonController.text : category,
-          _messageController.text);
+          _messageController.text,
+          date.toString(),
+          timeSlot,
+          image: image.path.isEmpty ? "" : generatedUrl);
       if (result) {
         AppNavigation.showSnackBar(
             context: context, content: "Your Maintenance Added");
         setState(() {});
         context.read<RequestController>().addRequestList(UserRequestDatum(
-            id: "0",
+            id: Random().nextInt(100).toString(),
             msg: _messageController.text,
             category: category == "Others" ? _reasonController.text : category,
             status: 'Pending',
-            user: "0",
+            user: Random().nextInt(100).toString(),
+            image: image.path.isEmpty ? "" : generatedUrl,
+            preferredDate: date,
+            preferredSlot: timeSlot,
             createdAt: DateTime.now(),
             updatedAt: DateTime.now(),
             v: 0));

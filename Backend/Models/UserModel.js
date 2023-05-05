@@ -34,11 +34,19 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: false,
         },
+        address: {
+            type: String,
+            required: true,
+        },
         contactNumber: {
             type: Number,
             required: true
         },
         floorNumber: {
+            type: Number,
+            required: true
+        },
+        unitNumber: {
             type: Number,
             required: true
         },

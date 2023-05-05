@@ -13,6 +13,18 @@ const MaintenanceSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        image: {
+            type: String,
+            required: false
+        },
+        preferredDate: {
+            type: Date,
+            required: true
+        },
+        preferredSlot: {
+            type: String,
+            required: true
+        },
         status: {
             type: String,
             enum: ['Pending', 'Processing', 'Completed'],

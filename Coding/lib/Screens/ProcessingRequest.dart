@@ -115,6 +115,28 @@ class _ProcessingRequestsState extends State<ProcessingRequests>
                                 .getProcessingRequests[index]
                                 .user
                                 .contactNumber,
+                            visitDate: context
+                                .read<RequestController>()
+                                .getProcessingRequests[index]
+                                .preferredDate,
+                            visitTime: context
+                                .read<RequestController>()
+                                .getProcessingRequests[index]
+                                .preferredSlot,
+                            requestImage: context
+                                .read<RequestController>()
+                                .getProcessingRequests[index]
+                                .image,
+                            address: context
+                                .read<RequestController>()
+                                .getProcessingRequests[index]
+                                .user
+                                .address,
+                            unitNumber: context
+                                .read<RequestController>()
+                                .getProcessingRequests[index]
+                                .user
+                                .unitNumber,
                           );
                         }),
                   );

@@ -30,7 +30,9 @@ class AuthAPI extends API {
           ..image = model.loginData.loginUser.image
           ..usertype = model.loginData.loginUser.usertype
           ..contactNumber = model.loginData.loginUser.contactNumber
-          ..floorNumber = model.loginData.loginUser.floorNumber;
+          ..floorNumber = model.loginData.loginUser.floorNumber
+          ..address = model.loginData.loginUser.address
+          ..unitNumber = model.loginData.loginUser.unitNumber;
 
         box.add(newUser);
 
@@ -58,7 +60,9 @@ class AuthAPI extends API {
       String pass,
       String image,
       String contact,
-      String floor) async {
+      String floor,
+      String address,
+      String unit) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('POST', Uri.parse('$authUrl/signup'));
     request.body = json.encode({
@@ -67,7 +71,9 @@ class AuthAPI extends API {
       "password": pass,
       "image": image,
       "contact": contact,
-      "floor": floor
+      "floor": floor,
+      "address": address,
+      "unitNumber": unit
     });
     request.headers.addAll(headers);
 

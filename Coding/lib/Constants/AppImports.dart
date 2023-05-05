@@ -1,6 +1,7 @@
 //packages
 export 'dart:async';
 export 'dart:io';
+export 'dart:math';
 export 'package:flutter/material.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:flutter/services.dart';

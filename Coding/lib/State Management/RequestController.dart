@@ -44,7 +44,7 @@ class RequestController extends ChangeNotifier {
 
   // functions
   addRequestList(UserRequestDatum data) {
-    _requestList.add(data);
+    _requestList.insert(0, data);
     notifyListeners();
   }
 

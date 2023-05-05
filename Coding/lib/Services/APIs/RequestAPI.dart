@@ -54,15 +54,27 @@ class RequestAPI extends API {
     }
   }
 
-  static Future<bool> addRequest(String category, String msg) async {
+  static Future<bool> addRequest(
+      String category, String msg, String date, String slot,
+      {String image = ""}) async {
     final String accessToken = Boxes.getUser().values.first.accessToken;
 
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $accessToken'
     };
+    var fields = {
+      "msg": msg,
+      "category": category,
+      "preferredDate": date,
+      "preferredSlot": slot,
+    };
+
+    if (image.isNotEmpty) {
+      fields["image"] = image;
+    }
     var request = http.Request('POST', Uri.parse('$requestUrl/add'));
-    request.body = json.encode({"msg": msg, "category": category});
+    request.body = json.encode(fields);
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

@@ -406,6 +406,18 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           .read<RequestController>()
                                           .getRequestList[index]
                                           .category,
+                                      visitDate: context
+                                          .read<RequestController>()
+                                          .getRequestList[index]
+                                          .preferredDate,
+                                      visitTime: context
+                                          .read<RequestController>()
+                                          .getRequestList[index]
+                                          .preferredSlot,
+                                      requestImage: context
+                                          .read<RequestController>()
+                                          .getRequestList[index]
+                                          .image,
                                     );
                                   }),
                             );
@@ -616,9 +628,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     text: 'Address: ',
                                     style:
                                         TextStyle(fontWeight: FontWeight.w600)),
-                                TextSpan(
-                                    text:
-                                        '0${currentUser.contactNumber.toString().substring(0, 3)}-${currentUser.contactNumber.toString().substring(4)}')
+                                TextSpan(text: currentUser.address)
                               ],
                             ),
                           ),
@@ -665,7 +675,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             fontWeight: FontWeight.w600)),
                                     TextSpan(
                                         text:
-                                            currentUser.floorNumber.toString()),
+                                            currentUser.unitNumber.toString()),
                                   ],
                                 ),
                               ),

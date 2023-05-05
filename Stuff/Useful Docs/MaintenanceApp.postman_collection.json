@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d2a1b223-84b4-42d6-9d1d-e2ce48107ef1",
+		"_postman_id": "f4a655df-ba40-47c5-a8e8-aabd031226d8",
 		"name": "MaintenanceApp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -49,7 +49,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"username\":\"Alif\",\n\"email\":\"villanharry@gmail.com\",\n\"password\":\"admin@123\",\n\"image\":\"https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg\",\n\"contact\":\"030000000000\",\n\"floor\":\"1\"\n}",
+							"raw": "{\n\"username\":\"Mr Villan\",\n\"email\":\"villanharry@gmail.com\",\n\"password\":\"admin@123\",\n\"image\":\"https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg\",\n\"contact\":\"03123456789\",\n\"floor\":\"1\",\n\"address\":\"Pearl Tower - PT1\",\n\"unitNumber\":\"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,7 +114,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"maintenanceapp6@gmail.com\",\n    \"otp\":\"257429\"\n}",
+							"raw": "{\n    \"email\":\"admin@gmail.com\",\n    \"otp\":\"123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,7 +145,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"maintenanceapp6@gmail.com\",\n    \"password\":\"admin@123\"\n}",
+							"raw": "{\n    \"email\":\"alif@email.com\",\n    \"password\":\"123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -171,18 +171,21 @@
 				},
 				{
 					"name": "Change Password",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY3Y2ZlZmNhZTAxODExNDdmZmM4NCIsImlhdCI6MTY4MjQyODMxNiwiZXhwIjoxNjg1MDIwMzE2fQ.vgYMrXZyHOOMg6YtD_N3ngL9JzN6DRIdGkiYXKWoPmc",
+									"value": "uXub0aivQXuLMyQRugwOJK365VYZDer1aLYPdYwpRjeC8Vx7bGEZfkoDPWo9",
 									"type": "string"
 								}
 							]
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -218,7 +221,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY3Y2ZlZmNhZTAxODExNDdmZmM4NCIsImlhdCI6MTY4MjM0MTYxMywiZXhwIjoxNjgyNTE0NDEzfQ.IVVKrD9_ezFcGNgSGnrQJOfg3Ml7jEvuvXiCqSzT-Og",
+									"value": "L5lxIiGgn0ymKkGJNciCjZC8DgD8YT1IbmGeSO1ICy0F2WTOrDGEKEBDjlCH",
 									"type": "string"
 								}
 							]
@@ -255,7 +258,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY3Y2ZlZmNhZTAxODExNDdmZmM4NCIsImlhdCI6MTY4MjM0MTYxMywiZXhwIjoxNjgyNTE0NDEzfQ.IVVKrD9_ezFcGNgSGnrQJOfg3Ml7jEvuvXiCqSzT-Og",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NTUyMTg3NWI1OWI5NDY4M2FmNmNmNyIsImlhdCI6MTY4MzMwMTQ0NCwiZXhwIjoxNjg1ODkzNDQ0fQ.ywXEv1QiFh0EeVg9uxzXtkX_x0h1yqSAtdPhA2Q2xGs",
 									"type": "string"
 								}
 							]
@@ -264,7 +267,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"msg\":\"Ceiling is cracking.\",\n    \"category\":\"Construction works\"\n}",
+							"raw": "{\n    \"msg\":\"Water Problem\",\n    \"category\":\"Construction works\",\n    \"preferredDate\":\"2023-05-05T15:32:23.727+00:00\",\n    \"preferredSlot\":\"9:00 AM to 12:00 PM\",\n    \"image\":\"https://i0.wp.com/www.ecomena.org/wp-content/uploads/2018/12/water-line-maintenance.jpg?ssl=1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -299,7 +302,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDRmYjI2NzBkNmQyNzhlNmIxODNlMCIsImlhdCI6MTY4MjQyMjE0MywiZXhwIjoxNjg1MDE0MTQzfQ.Femu7JWfV6J-fRSLi-n67INV5FJ4o6KBBdFEQthqnys",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDRmYjI2NzBkNmQyNzhlNmIxODNlMCIsImlhdCI6MTY4MzI5ODc4MywiZXhwIjoxNjg1ODkwNzgzfQ.5sE-tWWU069FIxG1uJZ0Z_9C0AajgjHnGvPKuECN6Rw",
 									"type": "string"
 								}
 							]
@@ -308,7 +311,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"status\":\"Pending\"\r\n}",
+							"raw": "{\"status\": \"Pending\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -340,7 +343,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDY3Y2ZlZmNhZTAxODExNDdmZmM4NCIsImlhdCI6MTY4MjQzNTY2NiwiZXhwIjoxNjg1MDI3NjY2fQ.WF33ZXr4V8k9bBwpKPLXdV-tURQh0ux2NlLZVgzebWE",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBiMmI2YjQ4MDc5MjhhOThmOGM2NyIsImlhdCI6MTY4MTk2NDA3NiwiZXhwIjoxNjgyMTM2ODc2fQ.D4iADjRuirD92FPaaF7B99s1pVvyTaugR_xldT6rN6A",
 									"type": "string"
 								}
 							]
@@ -375,7 +378,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDRmYjI2NzBkNmQyNzhlNmIxODNlMCIsImlhdCI6MTY4MjQyMjE0MywiZXhwIjoxNjg1MDE0MTQzfQ.Femu7JWfV6J-fRSLi-n67INV5FJ4o6KBBdFEQthqnys",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NDBhY2M5NzhhZThmNDU5YzdjY2FmYSIsImlhdCI6MTY4MTk2MzU3MiwiZXhwIjoxNjgyMTM2MzcyfQ.0CYRNEWTNfBI0-MMH_x2Snlhh3C0OwtBASyvwt2JynI",
 									"type": "string"
 								}
 							]
@@ -384,7 +387,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":\"644696feb511d54e95872b6e\",\n    \"status\":\"Processing\"\n}",
+							"raw": "{\n    \"id\":\"6440b87e0eed763fef08866c\",\n    \"status\":\"Processing\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -409,6 +412,62 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "https://oauth2.googleapis.com/token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "491067491983-l7s6543ibmhgeephor65b3rp33hhn4tj.apps.googleusercontent.com",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "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",
+							"type": "default"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "urn:ietf:wg:oauth:2.0:oob",
+							"type": "default"
+						},
+						{
+							"key": "code",
+							"value": "4/1AbUR2VN4szFzYDmXeZ3nT7uATAtzidA_WJPmOEbFfGxsHsdfXMIPLIrgArE",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://oauth2.googleapis.com/token",
+					"protocol": "https",
+					"host": [
+						"oauth2",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

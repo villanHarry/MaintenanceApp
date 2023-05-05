@@ -20,7 +20,9 @@ const UserRegisteration = async (req, res, next) => {
             ).toString(),
             image: req.body.image,
             contactNumber: req.body.contact,
-            floorNumber: req.body.floor
+            floorNumber: req.body.floor,
+            address: req.body.address,
+            unitNumber: req.body.unitNumber
         });
 
         const savedUser = await newUser.save();

@@ -12,6 +12,7 @@ class RequestCard extends StatefulWidget {
     this.isExpanded = false,
     this.category = 'Construction works',
     this.image = "",
+    this.requestImage = "",
     this.username = "",
     this.contactNumber = 0,
     this.floorNumber = 0,
@@ -36,6 +37,7 @@ class RequestCard extends StatefulWidget {
   final DateTime visitDate;
   final String visitTime;
   final String image;
+  final String requestImage;
   final String username;
   final String address;
   final int contactNumber;
@@ -216,8 +218,66 @@ class _RequestCardState extends State<RequestCard>
                             color: Colors.grey.shade500,
                             thickness: 1,
                           ),
+                          Visibility(
+                            visible: widget.requestImage.isNotEmpty,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: .02.sw,
+                                ),
+                                CachedNetworkImage(
+                                  imageUrl: widget.requestImage,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    width: 1.sw,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFFAFAFA),
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: const Color(0xFFABAAAC)),
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  progressIndicatorBuilder:
+                                      (context, url, progress) => Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    width: 1.sw,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFFFAFAFA),
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: const Color(0xFFABAAAC))),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 0.3.sw + 3.r,
+                                          height: 0.3.sw + 3.r,
+                                          child: CircularProgressIndicator(
+                                            value: progress.progress,
+                                            strokeWidth: 2.5,
+                                            color: const Color(0xDA082D50),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(
+                                    Icons.error,
+                                    color: Color(0xFF082D50),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           SizedBox(
-                            height: .015.sw,
+                            height: .02.sw,
                           ),
                           SizedBox(
                             width: 1.sw,
@@ -343,8 +403,10 @@ class _RequestCardState extends State<RequestCard>
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600)),
                                         TextSpan(
-                                            text:
-                                                widget.contactNumber.toString())
+                                            text: widget.admin
+                                                ? '0${widget.contactNumber.toString().substring(0, 3)}-${widget.contactNumber.toString().substring(4)}'
+                                                : widget.contactNumber
+                                                    .toString())
                                       ],
                                     ),
                                   ),
@@ -522,7 +584,7 @@ class _RequestCardState extends State<RequestCard>
                 Container(
                   color: const Color(0x96E0E0E0),
                   width: 1.sw,
-                  height: .3.sh,
+                  height: widget.requestImage.isEmpty ? .47.sh : .68.sh,
                 ),
                 Lottie.asset(AppAssets.loader,
                     fit: BoxFit.fill,

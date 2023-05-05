@@ -115,6 +115,28 @@ class _CompletedRequestsState extends State<CompletedRequests>
                                 .getCompletedRequests[index]
                                 .user
                                 .contactNumber,
+                            visitDate: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .preferredDate,
+                            visitTime: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .preferredSlot,
+                            requestImage: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .image,
+                            address: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .user
+                                .address,
+                            unitNumber: context
+                                .read<RequestController>()
+                                .getCompletedRequests[index]
+                                .user
+                                .unitNumber,
                           );
                         }),
                   );

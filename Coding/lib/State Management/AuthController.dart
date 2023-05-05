@@ -27,10 +27,28 @@ class AuthController extends ChangeNotifier {
   /*
    * description: Function to signup user
    */
-  Future<bool> signup(BuildContext context, String username, String email,
-      String pass, File image, String contact, String floor) async {
-    return await AuthAPI.signup(context, username, email, pass,
-        await AppImageHandler.generate(context, image), contact, floor);
+  Future<bool> signup(
+      BuildContext context,
+      String username,
+      String email,
+      String pass,
+      File image,
+      String contact,
+      String floor,
+      String address,
+      String unit) async {
+    return await AuthAPI.signup(
+        context,
+        username,
+        email,
+        pass,
+        image.path.isEmpty
+            ? "https://www.pngmart.com/files/21/Admin-Profile-Vector-PNG-Clipart.png"
+            : await AppImageHandler.generate(context, image),
+        contact,
+        floor,
+        address,
+        unit);
   }
 
   /*

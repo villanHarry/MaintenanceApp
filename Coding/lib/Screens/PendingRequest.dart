@@ -114,6 +114,28 @@ class _PendingRequestsState extends State<PendingRequests>
                                 .getPendingRequests[index]
                                 .user
                                 .contactNumber,
+                            visitDate: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .preferredDate,
+                            visitTime: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .preferredSlot,
+                            requestImage: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .image,
+                            address: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .user
+                                .address,
+                            unitNumber: context
+                                .read<RequestController>()
+                                .getPendingRequests[index]
+                                .user
+                                .unitNumber,
                           );
                         }),
                   );

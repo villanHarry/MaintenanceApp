@@ -37,6 +37,8 @@ class LoginModel {
                     otp: 0,
                     contactNumber: 0,
                     floorNumber: 0,
+                    unitNumber: 0,
+                    address: "",
                     v: 0,
                     createdAt: DateTime.now(),
                     updatedAt: DateTime.now()))
@@ -73,6 +75,8 @@ class LoginData {
                 otp: 0,
                 contactNumber: 0,
                 floorNumber: 0,
+                unitNumber: 0,
+                address: "",
                 v: 0,
                 createdAt: DateTime.now(),
                 updatedAt: DateTime.now())
@@ -100,6 +104,8 @@ class LoginUser {
     required this.v,
     required this.contactNumber,
     required this.floorNumber,
+    required this.unitNumber,
+    required this.address,
   });
 
   String id;
@@ -115,6 +121,8 @@ class LoginUser {
   int v;
   int contactNumber;
   int floorNumber;
+  int unitNumber;
+  String address;
 
   factory LoginUser.fromJson(Map<String, dynamic> json) => LoginUser(
         id: json["_id"],
@@ -130,6 +138,8 @@ class LoginUser {
         v: json["__v"],
         contactNumber: json["contactNumber"],
         floorNumber: json["floorNumber"],
+        unitNumber: json["unitNumber"],
+        address: json["address"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -146,5 +156,7 @@ class LoginUser {
         "__v": v,
         "contactNumber": contactNumber,
         "floorNumber": floorNumber,
+        "unitNumber": unitNumber,
+        "address": address,
       };
 }

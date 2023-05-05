@@ -97,7 +97,10 @@ class _InputFieldState extends State<InputField> {
           labelStyle:
               TextStyle(fontSize: 15.sp, color: const Color(0xFFABAAAC)),
           focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(width: 2, color: widget.selectedColor)),
+              borderSide: BorderSide(width: 2, color: widget.selectedColor),
+              borderRadius: BorderRadius.circular(widget.borderRadius == 0
+                  ? width * .01
+                  : widget.borderRadius)),
           disabledBorder: OutlineInputBorder(
               borderSide:
                   const BorderSide(width: 1.5, color: Color(0xFFABAAAC)),

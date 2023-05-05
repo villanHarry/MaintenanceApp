@@ -14,7 +14,7 @@ class _EmailConfirmationState extends State<EmailConfirmation> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0xFFFAFAFA),
           elevation: 0,
           centerTitle: true,
           leading: Padding(
@@ -22,7 +22,7 @@ class _EmailConfirmationState extends State<EmailConfirmation> {
             child: IconButton(
               icon: const Icon(
                 Icons.close,
-                color: Color(0xFF082D50),
+                color: Color(0xFF616161),
               ),
               onPressed: () {
                 AppNavigation.popAll(context, const LoginScreen());
@@ -32,7 +32,7 @@ class _EmailConfirmationState extends State<EmailConfirmation> {
           title: Text(
             "Email Confirmation",
             style: TextStyle(
-                color: const Color(0xFF082D50),
+                color: const Color(0xFF616161),
                 fontSize: 17.sp,
                 fontWeight: FontWeight.w400),
           ),
@@ -47,19 +47,11 @@ class _EmailConfirmationState extends State<EmailConfirmation> {
             height: 0.91.sh,
             width: 1.sw,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.0, 0.7],
-                colors: [
-                  Colors.white,
-                  Color(0xFFC2C2C2),
-                ],
-              ),
+              color: Color(0xFFFAFAFA),
               image: DecorationImage(
                 image: AssetImage(AppAssets.bg),
                 fit: BoxFit.contain,
-                opacity: 0.2,
+                opacity: 0.5,
                 alignment: Alignment.bottomCenter,
               ),
             ),
@@ -88,8 +80,8 @@ class _EmailConfirmationState extends State<EmailConfirmation> {
                         "Sign Up Successful",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: const Color(0xFF082D50),
-                          fontSize: 22.sp,
+                          color: const Color(0xFF616161),
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -99,11 +91,11 @@ class _EmailConfirmationState extends State<EmailConfirmation> {
                       SizedBox(
                         width: .8.sw,
                         child: Text(
-                          "Please check your email(${widget.email}) for a confirmation link, to activate your account",
+                          "Please check your email\n(${widget.email}) for a confirmation link, to activate your account",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: const Color(0xFF082D50),
-                              fontSize: 17.sp,
+                              color: const Color(0xFF616161),
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w400),
                         ),
                       ),
