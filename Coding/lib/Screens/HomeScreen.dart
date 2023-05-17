@@ -88,26 +88,42 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   );
                 },
                 child: Container(
-                    width: 0.22.sw,
-                    height: 0.22.sw,
-                    padding: EdgeInsets.all(10.r),
+                    padding: EdgeInsets.all(.04.sw),
                     decoration: BoxDecoration(
-                        color: const Color(0xFFFAFAFA),
-                        border: Border.all(
-                          color: const Color(0xFF616161).withOpacity(0.15),
-                          width: 1,
+                      color: const Color(0xFFFAFAFA),
+                      border: Border.all(
+                        color: const Color(0xFF616161).withOpacity(0.15),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(.05.sw),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 7,
+                          spreadRadius: 2,
+                          offset: const Offset(0, 0),
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          AppAssets.logo,
+                          width: 0.12.sw,
+                          fit: BoxFit.fitWidth,
+                          color: const Color(0xFF616161),
+                          colorBlendMode: BlendMode.srcIn,
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            blurRadius: 7,
-                            spreadRadius: 2,
-                            offset: const Offset(0, 0),
-                          )
-                        ],
-                        shape: BoxShape.circle),
-                    child: Image.asset(
-                      AppAssets.logo,
+                        SizedBox(
+                          width: .03.sw,
+                        ),
+                        Text("Make a Request",
+                            style: TextStyle(
+                                fontSize: 15.sp,
+                                color: const Color(0xFF616161),
+                                fontWeight: FontWeight.w600)),
+                      ],
                     )),
               ),
         drawer: homeDrawer(),
@@ -469,10 +485,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
       ),
       title: Text(
-        "GPS Help Desk",
+        "Great Professional Services",
         style: TextStyle(
             color: const Color(0xFF616161),
-            fontSize: 17.sp,
+            fontSize: 15.sp,
             fontWeight: FontWeight.w400),
       ),
       actions: [

@@ -53,17 +53,19 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Spacer(),
-              Image.asset(
-                AppAssets.logo,
-                height: 0.2.sh,
-                width: 0.2.sh,
-              ),
-              Text("Welcome to \nGPS Help Desk",
+              Text("Welcome to",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: const Color(0xFF616161),
                     fontSize: 18.sp,
                   )),
+              Image.asset(
+                AppAssets.logo,
+                height: 0.3.sh,
+                width: 0.3.sh,
+                fit: BoxFit.fitWidth,
+              ),
+
               /*Container(
                 padding: EdgeInsets.all(0.08.sh),
                 decoration: BoxDecoration(

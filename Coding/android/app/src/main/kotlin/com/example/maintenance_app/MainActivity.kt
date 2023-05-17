@@ -1,4 +1,4 @@
-package com.example.maintenance_app
+package com.gps.app
 
 import io.flutter.embedding.android.FlutterActivity
 

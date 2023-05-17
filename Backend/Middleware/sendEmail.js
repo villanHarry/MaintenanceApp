@@ -53,7 +53,7 @@ ${otp}
 If you did not make this request, please ignore this email.
             
 Thank you,
-Maintenance App`,
+Great Professional Services`,
         };
 
         // Send the email
@@ -277,7 +277,7 @@ const confirmEmail = async (user) => {
                                     <td align="left" bgcolor="#ffffff"
                                         style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
                                         <h3>Welcome!</h3>
-                                        <p style="margin: 0;">Thank you for registering with Maintenance App! Please confirm your
+                                        <p style="margin: 0;">Thank you for registering with Great Professional Services! Please confirm your
                                             email
                                             address by clicking on the button below:</p>
                                     </td>

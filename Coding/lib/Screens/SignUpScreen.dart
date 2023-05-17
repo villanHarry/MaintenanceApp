@@ -292,10 +292,10 @@ class _SignUpScreenState extends State<SignUpScreen>
                                   InputField(
                                     width: 0.435.sw,
                                     text: "Unit #",
-                                    maxLength: 2,
+                                    maxLength: 4,
                                     inputType: TextInputType.number,
                                     controller: unit,
-                                    hint: "00",
+                                    hint: "0000",
                                     fontSize: 15.sp,
                                     borderRadius: .05.sw,
                                   ),
